@@ -15,6 +15,7 @@ import Login from './src/pages/Authenticate/Login.js';
 import Register from './src/pages/Authenticate/Register.js';
 import Games from './src/pages/Games/Games.js';
 import Game from './src/pages/Games/Game.js';
+import Leaderbord from './src/pages/Games/Leaderbord.js';
 import Present from './src/pages/News/Present.js';
 import Events from './src/pages/News/Events.js';
 import Event from './src/pages/News/Event.js';
@@ -40,6 +41,7 @@ const App = () => {
       <Stack.Screen name="Register"component={Register}/>
       <Stack.Screen name="Games"component={Games}/>
       <Stack.Screen name="Game"component={Game}/>
+      <Stack.Screen name="Leaderbord"component={Leaderbord}/>
       <Stack.Screen name="Present"component={Present}/>
       <Stack.Screen name="Events"component={Events}/>
       <Stack.Screen name="Event"component={Event}/>
