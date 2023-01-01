@@ -3,26 +3,54 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
 } from 'react-native';
 
-const GamesItem = () => {
+const GamesItem = (props) => {
   return (
-    <View style={styles.titleContainer}>
-      <Text style={styles.title}>Componentes Jogos</Text>
+    <View style={styles.container}>
+      <View style={styles.infoGame}>
+        <Text style={styles.gameName}>{props.game.name}</Text>
+        <Text>{props.game.type}</Text>
+      </View>
+      <View style={styles.imgGame}>
+        <Image 
+          source={{ uri: props.game.image,}}
+          style={styles.image}
+        />
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  container: {
+    flexDirection: 'row',
+    marginHorizontal: 10,
+    marginVertical: 15,
+    backgroundColor: "#54C5D0",
+    borderRadius: 12,
+    height: 145,
+    width: "90%",
   },
-  title: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: 'black',
+  infoGame: {
+    width: "50%",
+    padding: 15,
+  },
+  imgGame: {
+    width: "50%"
+  },
+  gameName: {
+    fontSize: 18,
+    fontWeight: "700",
+    height: "65%",
+    // marginBottom: 15,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    borderTopRightRadius: 12,
+    borderBottomRightRadius: 12,
   }
 });
 
