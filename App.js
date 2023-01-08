@@ -34,7 +34,7 @@ const App = () => {
 
   <NavigationContainer>
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      {/* <Stack.Screen name="HomePage"component={HomePage}/>
+      <Stack.Screen name="HomePage"component={HomePage}/>
       <Stack.Screen name="Menu"component={Menu}/>
       <Stack.Screen name="Onboarding"component={Onboarding}/>
       <Stack.Screen name="AboutUs"component={AboutUs}/>
@@ -50,10 +50,10 @@ const App = () => {
       <Stack.Screen name="Events"component={Events}/>
       <Stack.Screen name="Event"component={Event}/>
       <Stack.Screen name="News"component={News}/>
-      <Stack.Screen name="New"component={New}/> */}
+      <Stack.Screen name="New"component={New}/>
       <Stack.Screen name="Profile"component={Profile}/>
-      {/* <Stack.Screen name="EditProfile"component={EditProfile}/>
-      <Stack.Screen name="Store"component={Store}/> */}
+      <Stack.Screen name="EditProfile"component={EditProfile}/>
+      <Stack.Screen name="Store"component={Store}/>
     </Stack.Navigator>
   </NavigationContainer>
   );
