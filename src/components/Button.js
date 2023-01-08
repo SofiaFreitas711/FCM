@@ -1,29 +1,41 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const Button = () => {
+const Button = ({ title, onChange, style, titleStyle }) => {
   return (
-    <View style={styles.titleContainer}>
-      <Text style={styles.title}>Botão</Text>
-    </View>
-  )
-}
+    <TouchableOpacity onChange={onChange}>
+      <View style={style ? style : styles.container}>
+        <Text style={titleStyle ? titleStyle : styles.title}>{title}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "column",
+    position: "absolute",
+    /* padding e margin */
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    marginHorizontal: 20,
+    /* alinhamentos */
+    alignItems: "center",
+    justifyContent: "center",
+    /* customizar */
+    borderRadius: 15,
+    backgroundColor: "#2E3192",
   },
+
   title: {
+    fontFamily: "Barlow",
     fontSize: 24,
-    fontWeight: '600',
-    color: 'black',
-  }
+    fontWeight: "bold",
+    textAlign: "center",
+    lineHeight: 22,
+    color: "#FFFFFF",
+  },
 });
 
 export default Button;

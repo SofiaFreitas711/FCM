@@ -5,11 +5,10 @@ import {
   View,
 } from 'react-native';
 
-const Game = ({navigation, route}) => {
-  const game = route.params.game;
+const Leaderbord = ({navigation}) => {
   return (
     <View style={styles.titleContainer}>
-      <Text style={styles.title}>{game.name}</Text>
+      <Text style={styles.title}>Leaderbord</Text>
     </View>
   )
 }
@@ -27,4 +26,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Game;
+export default Leaderbord;
