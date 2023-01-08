@@ -1,9 +1,10 @@
 import React from 'react';
-import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+// import { createDrawerNavigator } from '@react-navigation/drawer';
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
-const Drawer = createDrawerNavigator();
+// const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
 
 
 import HomePage from './src/pages/HomePage.js';
@@ -26,15 +27,14 @@ import New from './src/pages/News/New.js';
 import Profile from './src/pages/Profile/Profile.js';
 import EditProfile from './src/pages/Profile/EditProfile.js';
 import Store from './src/pages/Stores/Store.js';
-import Roulette from './src/pages/Stores/Roulette.js';
 
 const App = () => {
   return (
 
 
-    <NavigationContainer>
+  <NavigationContainer>
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="HomePage"component={HomePage}/>
+      {/* <Stack.Screen name="HomePage"component={HomePage}/>
       <Stack.Screen name="Menu"component={Menu}/>
       <Stack.Screen name="Onboarding"component={Onboarding}/>
       <Stack.Screen name="AboutUs"component={AboutUs}/>
@@ -52,9 +52,8 @@ const App = () => {
       <Stack.Screen name="News"component={News}/>
       <Stack.Screen name="New"component={New}/>
       <Stack.Screen name="Profile"component={Profile}/>
-      <Stack.Screen name="EditProfile"component={EditProfile}/>
+      <Stack.Screen name="EditProfile"component={EditProfile}/> */}
       <Stack.Screen name="Store"component={Store}/>
-      <Stack.Screen name="Roulette"component={Roulette}/>
     </Stack.Navigator>
   </NavigationContainer>
   );
