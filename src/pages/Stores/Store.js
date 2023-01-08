@@ -39,10 +39,11 @@ const Store = ({navigation}) => {
             title={list.name}
             expanded={expanded}
             onPress={handlePress}
+            titleStyle={{ color:'white' }}
             style={points >= list.pontos? styles.container: styles.containerOff}>
-            <List.Item title={list.descricao} style={points >= list.pontos? styles.details: styles.detailsOff}/>
-            <List.Item title={list.pontos} style={points >= list.pontos? styles.details: styles.detailsOff}/>
-            <List.Item title={'Trocar'} onPress={exchange}></List.Item>
+            <List.Item title={list.descricao} titleStyle={{ color:'white' }} style={points >= list.pontos? styles.details: styles.detailsOff}/>
+            <List.Item title={list.pontos} titleStyle={{ color:'white' }} style={points >= list.pontos? styles.details: styles.detailsOff}/>
+            <List.Item title={'Trocar'} titleStyle={{ color:'white' }} onPress={exchange}></List.Item>
           </List.Accordion>
         
       </ScrollView>
@@ -75,7 +76,6 @@ const styles = StyleSheet.create({
     width: 324,
     height: 88,
     marginTop: 40,
-    color: 'white'
   },
   containerOff:{
     backgroundColor: '#808080',

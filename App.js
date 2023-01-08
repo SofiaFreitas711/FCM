@@ -50,10 +50,10 @@ const App = () => {
       <Stack.Screen name="Events"component={Events}/>
       <Stack.Screen name="Event"component={Event}/>
       <Stack.Screen name="News"component={News}/>
-      <Stack.Screen name="New"component={New}/>
+      <Stack.Screen name="New"component={New}/> */}
       <Stack.Screen name="Profile"component={Profile}/>
-      <Stack.Screen name="EditProfile"component={EditProfile}/> */}
-      <Stack.Screen name="Store"component={Store}/>
+      {/* <Stack.Screen name="EditProfile"component={EditProfile}/>
+      <Stack.Screen name="Store"component={Store}/> */}
     </Stack.Navigator>
   </NavigationContainer>
   );
