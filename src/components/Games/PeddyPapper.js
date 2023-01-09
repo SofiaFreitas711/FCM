@@ -5,10 +5,10 @@ import {
   View,
 } from 'react-native';
 
-const Eventos = ({navigation}) => {
+const PeddyPapper = () => {
   return (
     <View style={styles.titleContainer}>
-      <Text style={styles.title}>Eventos</Text>
+      <Text style={styles.title}>Peddy-Papper</Text>
     </View>
   )
 }
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Eventos;
+export default PeddyPapper;

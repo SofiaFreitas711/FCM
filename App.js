@@ -6,33 +6,30 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 // const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
-
-import HomePage from './src/pages/HomePage.js';
-import Menu from './src/pages/Menu.js';
-import Onboarding from './src/pages/Onboarding.js';
-import AboutUs from './src/pages/AboutUs.js';
-import Arts from './src/pages/Arts/Arts.js';
-import Art from './src/pages/Arts/Art.js';
-import Artist from './src/pages/Arts/Artist.js';
-import Login from './src/pages/Authenticate/Login.js';
-import Register from './src/pages/Authenticate/Register.js';
-import Games from './src/pages/Games/Games.js';
-import Game from './src/pages/Games/Game.js';
-import Leaderbord from './src/pages/Games/Leaderbord.js';
-import Present from './src/pages/News/Present.js';
-import Events from './src/pages/News/Events.js';
-import Event from './src/pages/News/Event.js';
-import News from './src/pages/News/News.js';
-import New from './src/pages/News/New.js';
-import Profile from './src/pages/Profile/Profile.js';
-import EditProfile from './src/pages/Profile/EditProfile.js';
-import Store from './src/pages/Stores/Store.js';
+import HomePage from './src/screen/HomePage.js';
+import Menu from './src/screen/Menu.js';
+import Onboarding from './src/screen/Onboarding.js';
+import AboutUs from './src/screen/AboutUs.js';
+import Arts from './src/screen/Arts/Arts.js';
+import Art from './src/screen/Arts/Art.js';
+import Artist from './src/screen/Arts/Artist.js';
+import Login from './src/screen/Authenticate/Login.js';
+import Register from './src/screen/Authenticate/Register.js';
+import Games from './src/screen/Games/Games.js';
+import Game from './src/screen/Games/Game.js';
+import Leaderbord from './src/screen/Games/Leaderbord.js';
+import Present from './src/screen/News/Present.js';
+import Events from './src/screen/News/Events.js';
+import Event from './src/screen/News/Event.js';
+import News from './src/screen/News/News.js';
+import New from './src/screen/News/New.js';
+import Profile from './src/screen/Profile/Profile.js';
+import EditProfile from './src/screen/Profile/EditProfile.js';
+import Store from './src/screen/Store.js';
 
 const App = () => {
   return (
-
-
-  <NavigationContainer>
+    <NavigationContainer>
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="HomePage"component={HomePage}/>
       <Stack.Screen name="Menu"component={Menu}/>
