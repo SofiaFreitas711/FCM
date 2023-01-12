@@ -1,33 +1,11 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-// import { createDrawerNavigator } from '@react-navigation/drawer';
-import {createNativeStackNavigator} from '@react-navigation/native-stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-// const Drawer = createDrawerNavigator();
-const Stack = createNativeStackNavigator();
+import AuthStack from './src/navigation/AuthStack';
+import AppStack from './src/navigation/AppStack';
 
-import HomePage from './src/screen/HomePage.js';
-import Menu from './src/screen/Menu.js';
-import Onboarding from './src/screen/Onboarding.js';
-import AboutUs from './src/screen/AboutUs.js';
-import Arts from './src/screen/Arts/Arts.js';
-import Art from './src/screen/Arts/Art.js';
-import Artist from './src/screen/Arts/Artist.js';
-import Login from './src/screen/Authenticate/Login.js';
-import Register from './src/screen/Authenticate/Register.js';
-import Games from './src/screen/Games/Games.js';
-import Game from './src/screen/Games/Game.js';
-import Leaderbord from './src/screen/Games/Leaderbord.js';
-import Present from './src/screen/News/Present.js';
-import Events from './src/screen/News/Events.js';
-import Event from './src/screen/News/Event.js';
-import News from './src/screen/News/News.js';
-import New from './src/screen/News/New.js';
-import Profile from './src/screen/Profile/Profile.js';
-import EditProfile from './src/screen/Profile/EditProfile.js';
-import Store from './src/screen/Store.js';
-
-const App = () => {
+function App() {
   return (
     <NavigationContainer>
     <Stack.Navigator screenOptions={{headerShown: false}}>
@@ -54,6 +32,6 @@ const App = () => {
     </Stack.Navigator>
   </NavigationContainer>
   );
-};
+}
 
 export default App;
