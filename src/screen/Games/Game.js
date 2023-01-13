@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,7 +11,18 @@ import GameCombination from "../../components/Games/CombinationGame.js";
 import PeddyPapper from "../../components/Games/PeddyPapper.js";
 
 const Game = ({navigation, route}) => {
+  const [right, setRight] = useState(0);
+  const [points, setPoints] = useState(0);
   const game = route.params.game;
+
+  const finalizeGame = (rightQuestion) => {
+    const questionPoint = game.points / game.questions.length 
+    const newPoint = questionPoint * rightQuestion
+    setRight(rightQuestion);
+    setPoints(newPoint)
+    alert(`Acertou ${rightQuestion} perguntas!! Tives-te ${newPoint} pontos!`);
+  }
+
   return (
     <View style={styles.container}>
         <View style={styles.buttonBackContainer}>
@@ -23,7 +34,7 @@ const Game = ({navigation, route}) => {
           <Text style={styles.title}>{game.name}</Text>
         </View>
       {
-        game.type === "Quizz" ? <GameQuizz game={game.questions}/>
+        game.type === "Quizz" ? <GameQuizz finalizeQuizz={finalizeGame} game={game.questions}/>
         : game.type === "Combinação" ? <GameCombination/>
         : <PeddyPapper/>
       }
