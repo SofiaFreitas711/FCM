@@ -9,7 +9,6 @@ import {
 import GamesItem from '../../components/Games/GamesItem.js';
 import FilterGames from '../../components/Games/FilterGames.js';
 
-
 list = [
   {
     name: "Jogo 1",
@@ -20,13 +19,24 @@ list = [
       {
         question: "Pergunta 1",
         alternatives: ["alternativa a1", "alternativa a2", "alternativa a3", "alternativa a4"],
+        image: "https://t1.uc.ltmcdn.com/pt/posts/1/8/0/surrealismo_o_que_e_e_como_surgiu_20081_600.jpg",
         answer: "alternativa a2"
       },{
         question: "Pergunta 2",
         alternatives: ["alternativa b1", "alternativa b2", "alternativa b3", "alternativa b4"],
         answer: "alternativa b2"
-      },
-    ]
+      },{
+        question: "Pergunta 3",
+        alternatives: ["alternativa c1", "alternativa c2", "alternativa c3", "alternativa c4"],
+        answer: "alternativa c4"
+      },{
+        question: "Pergunta 4",
+        alternatives: ["alternativa d1", "alternativa d2", "alternativa d3", "alternativa d4"],
+        image: "https://t1.uc.ltmcdn.com/pt/posts/1/8/0/surrealismo_o_que_e_e_como_surgiu_20081_600.jpg",
+        answer: "alternativa d1"
+      }
+    ],
+    points: 100
   },
   {
     name: "Jogo 2",
