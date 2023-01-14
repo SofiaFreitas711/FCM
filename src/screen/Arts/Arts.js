@@ -9,6 +9,13 @@ const Arts = ({navigation}) => {
   return (
     <View style={styles.titleContainer}>
       <Text style={styles.title}>Obras</Text>
+      {/* <ScrollView
+  horizontal={true}
+  >
+  .
+  .
+  .
+  </ScrollView> */}
     </View>
   )
 }
