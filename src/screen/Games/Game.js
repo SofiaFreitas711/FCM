@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,16 +11,14 @@ import GameCombination from "../../components/Games/CombinationGame.js";
 import PeddyPapper from "../../components/Games/PeddyPapper.js";
 
 const Game = ({navigation, route}) => {
-  const [right, setRight] = useState(0);
-  const [points, setPoints] = useState(0);
   const game = route.params.game;
 
   const finalizeGame = (rightQuestion) => {
     const questionPoint = game.points / game.questions.length 
-    const newPoint = questionPoint * rightQuestion
-    setRight(rightQuestion);
-    setPoints(newPoint)
-    alert(`Acertou ${rightQuestion} perguntas!! Tives-te ${newPoint} pontos!`);
+    const points = questionPoint * rightQuestion
+
+    navigation.navigate('Leaderbord', {game: game, result: rightQuestion, points: points})
+    // alert(`Acertou ${rightQuestion} perguntas!! Tives-te ${newPoint} pontos!`);
   }
 
   return (

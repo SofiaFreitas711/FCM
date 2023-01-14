@@ -36,6 +36,51 @@ list = [
         answer: "alternativa d1"
       }
     ],
+    leaderbord: [{
+      name: "Carlos Queiros",
+      image: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
+      points: 100,
+    }, {
+      name: "Mario Oliveira",
+      image: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
+      points: 85,
+    }, {
+      name: "Antonio Monteiro",
+      image: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
+      points: 75,
+    }, {
+      name: "Pedro Miranda",
+      image: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
+      points: 60,
+    }, {
+      name: "Carolina Sousa",
+      image: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
+      points: 60,
+    }, {
+      name: "Tiago Rodrigues",
+      image: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
+      points: 55,
+    }, {
+      name: "Rita Pereira",
+      image: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
+      points: 50,
+    }, {
+      name: "Mario Soares",
+      image: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
+      points: 50,
+    }, {
+      name: "Carlos Melo",
+      image: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
+      points: 50,
+    }, {
+      name: "¯\_(ツ)_/¯",
+      image: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
+      points: 45,
+    }, {
+      name: "José Magalhães",
+      image: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png",
+      points: 45,
+    },],
     points: 100
   },
   {
