@@ -28,8 +28,6 @@ const QuizzGame = (props, {navigation}) => {
   const finalizeQuizz = () => {
     let rightQuestion = 0;
     for (let i = 0; i <= currentQuestion; i++) {
-      console.log(alternativeSelected[i]);
-      console.log(game[i].answer);
       if (alternativeSelected[i] === game[i].answer) {
         rightQuestion++
       }
