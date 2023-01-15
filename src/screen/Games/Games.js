@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import GamesItem from '../../components/Games/GamesItem.js';
 import FilterGames from '../../components/Games/FilterGames.js';
+import { SvgUri } from 'react-native-svg';
 
 list = [
   {
@@ -136,6 +137,7 @@ const Games = ({navigation}) => {
 
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.container}>
+      <SvgUri uri="https://osithual.sirv.com/Surrealismo/fundo.svg" style={styles.bg}/>
       <Text style={styles.title}>Jogos</Text>
       <FilterGames onFilterText={changeFilterText} onFilterType={changeFilterType} item={{type:{filterType}, name:{filterName}}}/> 
         <FlatList
@@ -155,6 +157,11 @@ const Games = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
+  bg: {
+    position: 'absolute',
+    top:-40,
+    left: -25,
+  },
   container: {
     margin: 25,
   },
