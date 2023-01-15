@@ -19,6 +19,7 @@ const Leaderbord = ({ navigation, route }) => {
 
   return (
     <View>
+      <SvgUri uri="https://osithual.sirv.com/Surrealismo/fundo.svg" style={styles.bg}/>
       <TouchableOpacity style={styles.backGames} onPress={() => navigation.navigate('Games')}>
         <SvgUri uri="https://phyrowns.sirv.com/Surrealismo/BackGames.svg" style={styles.backGamesIcon}/>
         <Text style={styles.backGamesText}>Votlar para os jogos</Text>
@@ -28,7 +29,7 @@ const Leaderbord = ({ navigation, route }) => {
         <Text style={styles.title}>RESULTADOS</Text>
         <Text style={styles.resultGame}>Conseguiste <Text style={styles.resultGameBold}>{points}/{game.points}</Text> pontos</Text>
       </View>
-      <SvgUri uri="https://phyrowns.sirv.com/Surrealismo/LeaderBordBG.svg" style={styles.bg}/>
+      <SvgUri uri="https://phyrowns.sirv.com/Surrealismo/LeaderBordBG.svg" style={styles.bgLeaderBord}/>
       <View style={styles.leaderbord}>
         <View style={[styles.leaders, styles.position2]}>
           <Image
@@ -84,6 +85,17 @@ const Leaderbord = ({ navigation, route }) => {
 }
 
 const styles = StyleSheet.create({
+  bg: {
+    position: 'absolute',
+    top:-40,
+    left: -25,
+  },
+  bgLeaderBord: {
+    width: "100%",
+    position: 'absolute',
+    top: 217,
+    left: -20,
+  },
   backGames: {
     flexDirection: 'row',
     marginVertical: 20,
@@ -187,12 +199,6 @@ const styles = StyleSheet.create({
   listPlayersPoints: {
     fontSize: 14,
     fontWeight: "medium",
-  },
-  bg: {
-    width: "100%",
-    position: 'absolute',
-    top: 225,
-    left: -20,
   },
 });
 
