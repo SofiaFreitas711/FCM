@@ -9,20 +9,22 @@ import {
 } from 'react-native';
 import {List} from 'react-native-paper'
 import { SvgUri } from 'react-native-svg';
+import axios from 'axios';
 
 const Store = ({navigation}) => {
+  let list = axios.get('https://surrealismoapi.onrender.com/shop')
   let points = 500
-  const list = {'name':'Oferta 1', 'pontos':350 , 'descricao':'info 1'}
+  // const list = {'name':'Oferta 1', 'pontos':350 , 'descricao':'info 1'}
   const [expanded, setExpanded] = React.useState(true);
 
   const handlePress = () => setExpanded(!expanded);
 
   function exchange() {
     // Alert.alert('cheguei aqui')
-    if(points < list.pontos){
+    if(points < list.amountPoints){
      Alert.alert('Ainda não é possivel')
     }else{
-      let trade = eval(points - list.pontos).toString()
+      let trade = eval(points - list.amountPoints).toString()
       points = trade
       Alert.alert(`${points}`)
     }    
@@ -40,10 +42,10 @@ const Store = ({navigation}) => {
             expanded={expanded}
             onPress={handlePress}
             titleStyle={{ color:'white' }}
-            style={points >= list.pontos? styles.container: styles.containerOff}>
-            <List.Item title={list.descricao} titleStyle={{ color:'white' }} style={points >= list.pontos? styles.details: styles.detailsOff}/>
-            <List.Item title={list.pontos} titleStyle={{ color:'white' }} style={points >= list.pontos? styles.details: styles.detailsOff}/>
-            <List.Item title={'Trocar'} titleStyle={{ color:'white' }} onPress={exchange}></List.Item>
+            style={points >= list.amountPoints? styles.container: styles.containerOff}>
+            <List.Item title={list.name} titleStyle={{ color:'white' }} style={points >= list.amountPoints? styles.details: styles.detailsOff}/>
+            <List.Item title={list.amountPoints} titleStyle={{ color:'white' }} style={points >= list.amountPoints? styles.details: styles.detailsOff}></List.Item>
+            <List.Item title={'Trocar'} titleStyle={{ color:'white' }} onPress={exchange} style={styles.button}></List.Item>
           </List.Accordion>
         
       </ScrollView>
@@ -102,7 +104,11 @@ const styles = StyleSheet.create({
     color:'white'
   },
   button:{
-    width: 30
+    height: 50,
+    borderRadius: 11,
+    color: 'white',
+    marginTop: -50,
+    position: 'absolute',
   },
   
   
