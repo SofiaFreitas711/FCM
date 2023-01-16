@@ -34,6 +34,69 @@ list = [
     description: "blablabla",
     type: "Evento",
   },
+  {
+    name: "Teste 5",
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
+    description: "blablabla",
+    type: "Noticia",
+  },{
+    name: "Teste 6",
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
+    description: "blablabla",
+    type: "Evento",
+  },{
+    name: "Teste 7",
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
+    description: "blablabla",
+    type: "Noticia",
+  },{
+    name: "Teste 8",
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
+    description: "blablabla",
+    type: "Evento",
+  },
+  {
+    name: "Teste 9",
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
+    description: "blablabla",
+    type: "Noticia",
+  },{
+    name: "Teste 10",
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
+    description: "blablabla",
+    type: "Evento",
+  },{
+    name: "Teste 11",
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
+    description: "blablabla",
+    type: "Noticia",
+  },{
+    name: "Teste 12",
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
+    description: "blablabla",
+    type: "Evento",
+  },
+  {
+    name: "Teste 13",
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
+    description: "blablabla",
+    type: "Noticia",
+  },{
+    name: "Teste 14",
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
+    description: "blablabla",
+    type: "Evento",
+  },{
+    name: "Teste 15",
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
+    description: "blablabla",
+    type: "Noticia",
+  },{
+    name: "Teste 16",
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
+    description: "blablabla",
+    type: "Evento",
+  },
 ];
 
 const Present = ({ navigation }) => {

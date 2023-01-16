@@ -3,27 +3,32 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity,
 } from 'react-native';
 
 const New = ({navigation}) => {
   return (
-    <View style={styles.titleContainer}>
-      <Text style={styles.title}>Notícia</Text>
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.buttonBack} onPress={() => navigation.navigate('Present')}>
+        <Text style={styles.buttonText}>&#x276C;</Text>
+      </TouchableOpacity>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    margin: 20,
+    marginBottom: 0,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: '600',
+  buttonBack: {
+    marginLeft: 5,
+  },
+  buttonText: {
     color: 'black',
-  }
+    fontSize: 20,
+  },
 });
 
 export default New;
