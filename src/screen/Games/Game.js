@@ -18,7 +18,6 @@ const Game = ({navigation, route}) => {
     const points = questionPoint * rightQuestion
 
     navigation.navigate('Leaderbord', {game: game, result: rightQuestion, points: points})
-    // alert(`Acertou ${rightQuestion} perguntas!! Tives-te ${newPoint} pontos!`);
   }
 
   return (
