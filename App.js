@@ -29,15 +29,15 @@ const App = () => {
   return (
     <NavigationContainer>
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      {/* <Stack.Screen name="HomePage"component={HomePage}/>
+      <Stack.Screen name="Login"component={Login}/>
+      <Stack.Screen name="Register"component={Register}/>
+      <Stack.Screen name="HomePage"component={HomePage}/>
       <Stack.Screen name="Menu"component={Menu}/>
       <Stack.Screen name="Onboarding"component={Onboarding}/>
       <Stack.Screen name="AboutUs"component={AboutUs}/>
       <Stack.Screen name="Arts"component={Arts}/>
       <Stack.Screen name="Art"component={Art}/>
       <Stack.Screen name="Artist"component={Artist}/>
-      <Stack.Screen name="Login"component={Login}/>
-      <Stack.Screen name="Register"component={Register}/>
       <Stack.Screen name="Games"component={Games}/>
       <Stack.Screen name="Game"component={Game}/>
       <Stack.Screen name="Leaderbord"component={Leaderbord}/>
@@ -47,7 +47,7 @@ const App = () => {
       <Stack.Screen name="News"component={News}/>
       <Stack.Screen name="New"component={New}/>
       <Stack.Screen name="Profile"component={Profile}/>
-      <Stack.Screen name="EditProfile"component={EditProfile}/> */}
+      <Stack.Screen name="EditProfile"component={EditProfile}/>
       <Stack.Screen name="Store"component={Store}/>
     </Stack.Navigator>
   </NavigationContainer>

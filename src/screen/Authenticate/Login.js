@@ -1,25 +1,37 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
   View,
   TextInput,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
-import userAPI from '../../api/userAPI.js';
+import api from "../../api/index.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const login = async () => {
-    try {
-      await userAPI.login(email, password);
-    }
-    catch (error) {
-      console.log(error);
-    }
+    await api.post(`/users/login`, {
+      email: email,
+      password: password,
+    })
+      .then(async function (response) {
+        console.log(response.data);
+
+        await AsyncStorage.setItem("token", response.data.accessToken);
+        await AsyncStorage.setItem("userID", response.data.id);
+        await AsyncStorage.setItem("type", response.data.type);
+        navigation.navigate('HomePage')
+      })
+      .catch(function (error) {
+        console.log(error.response.data);
+        setErrorMessage(error.response.data.msg)
+      });
   }
 
   return (
@@ -28,14 +40,14 @@ const Login = ({ navigation }) => {
       <Text style={styles.welcome}>Sê bem-vindo de volta!</Text>
       <View style={styles.form}>
         <TextInput
-          style={styles.textInput} 
+          style={styles.textInput}
           placeholder="e-mail"
           placeholderTextColor="rgba(0, 0, 0, 0.45)"
           onChangeText={setEmail}
           value={email}
         />
         <TextInput
-          style={styles.textInput} 
+          style={styles.textInput}
           placeholder="palavra-passe"
           placeholderTextColor="rgba(0, 0, 0, 0.45)"
           onChangeText={setPassword}
@@ -44,6 +56,13 @@ const Login = ({ navigation }) => {
         <TouchableOpacity style={styles.loginButton} onPress={login}>
           <Text style={styles.loginButtonText}>LOGIN</Text>
         </TouchableOpacity>
+        <Text style={styles.errorMessage}>{errorMessage}</Text>
+      </View>
+      <View style={styles.registerContainer}>
+        <Text style={styles.register}>Ainda não tens conta? </Text>
+        <Pressable onPress={() => navigation.navigate('Register')}>
+          <Text style={[styles.register, styles.registerLink]}>Regista-te!</Text>
+        </Pressable>
       </View>
     </View>
   )
@@ -86,7 +105,25 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 15,
     fontWeight: "bold",
-  }
+  },
+  registerContainer: {
+    flexDirection: 'row',
+  },
+  register: {
+    marginTop: 45,
+    color: "black",
+    fontSize: 13,
+  },
+  registerLink: {
+    color: "#0047FF",
+    fontStyle: "italic",
+  },
+  errorMessage: {
+    fontSize: 12,
+    color: "red",
+    opacity: 0.75,
+    fontWeight: "bold",
+  },
 });
 
 export default Login;
