@@ -40,14 +40,14 @@ const App = () => {
       <Stack.Screen name="Register"component={Register}/>
       <Stack.Screen name="Games"component={Games}/>
       <Stack.Screen name="Game"component={Game}/>
-      <Stack.Screen name="Leaderbord"component={Leaderbord}/>
+      <Stack.Screen name="Leaderbord"component={Leaderbord}/> */}
       <Stack.Screen name="Present"component={Present}/>
       <Stack.Screen name="Events"component={Events}/>
       <Stack.Screen name="Event"component={Event}/>
       <Stack.Screen name="News"component={News}/>
       <Stack.Screen name="New"component={New}/>
       <Stack.Screen name="Profile"component={Profile}/>
-      <Stack.Screen name="EditProfile"component={EditProfile}/> */}
+      <Stack.Screen name="EditProfile"component={EditProfile}/>
       <Stack.Screen name="Store"component={Store}/>
     </Stack.Navigator>
   </NavigationContainer>

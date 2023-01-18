@@ -18,8 +18,8 @@ const Arts = ({navigation}) => {
   const [status, setStatus] = useState('Obras')
 
   const artist1 = {'nome': 'Carlos Eduardo','nasc': 1932, 'morte': 2014, 'obras':['https://osithual.sirv.com/Images/FCM/FCM00006.jpg', 'https://osithual.sirv.com/Images/FCM/FCM00007.jpg', 'https://osithual.sirv.com/Images/FCM/FCM00013.jpg', 'https://osithual.sirv.com/Images/FCM/FCM02909.jpg','https://osithual.sirv.com/Images/FCM/FCM02909.jpg','https://osithual.sirv.com/Images/FCM/FCM02909.jpg']}
-  const artist2 = {'nome': 'Gustavo Santos', 'obras':['obra1', 'obra2', 'obra3', 'obra4']}
-  const artist3 = {'nome': 'Amélia Gomes', 'obras':['obra1', 'obra2', 'obra3', 'obra4']}
+  
+  
   const ListTab = [
     {
         status: 'Obras'
@@ -31,7 +31,6 @@ const Arts = ({navigation}) => {
 
   const setStatusFilter = status => {
           setStatus(status)
-          // setSliderId(0)
     }
 
   function swipeIndex(id){
@@ -42,10 +41,7 @@ const Arts = ({navigation}) => {
     <View style={styles.titleContainer}>
       <SvgUri uri="https://osithual.sirv.com/Surrealismo/fundo.svg" style={styles.bg}/>
       <Text style={styles.title}>Surrealismo</Text>
-      {/* <View style={styles.tab}>
-            <Text style={[sliderId == 0 ? styles.tabActive : styles.tabNotActive]}>Obras</Text>
-            <Text style={[sliderId == 1 ? styles.tabActive : styles.tabNotActive]}>Técnicas</Text>
-      </View> */}
+    
       <View style={styles.tabs}>
         {ListTab.map((tab, index) => (
           <Pressable key={index} style={styles.tab} onPress={() => setStatusFilter(tab.status)}>
