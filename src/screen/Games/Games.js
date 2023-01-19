@@ -29,7 +29,6 @@ const Games = ({ navigation }) => {
   }
 
   const listGamesFunction = () => {
-    getGames()
     if (filterName !== '' && filterType !== '') {
       const games = listGames.filter(game => game.name.includes(filterName) && game.type == filterType);
 
@@ -55,6 +54,10 @@ const Games = ({ navigation }) => {
     type = newType == "Todos" ? '' : newType;
     setFilterType(type)
   }
+
+  useEffect(() => {
+    getGames()
+  }, [])
 
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.container}>

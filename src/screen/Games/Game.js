@@ -52,7 +52,7 @@ const Game = ({navigation, route}) => {
 
   useEffect(()=>{
     getGame(route.params.art)
-  })
+  }, [])
 
   return (
     <View style={styles.container}>

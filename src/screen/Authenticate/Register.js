@@ -6,7 +6,6 @@ import {
   TextInput,
   TouchableOpacity,
   Button,
-  PasswordTextBox
 } from 'react-native';
 import api from "../../api/index.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";

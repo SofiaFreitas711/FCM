@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,101 +12,30 @@ import { SvgUri } from 'react-native-svg';
 import NewsItem from '../../components/News/NewsItem.js';
 import EventsItem from '../../components/News/EventsItem.js';
 
-list = [
-  {
-    name: "Teste 1",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Noticia",
-  },{
-    name: "Teste 2",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Evento",
-  },{
-    name: "Teste 3",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Noticia",
-  },{
-    name: "Teste 4",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Evento",
-  },
-  {
-    name: "Teste 5",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Noticia",
-  },{
-    name: "Teste 6",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Evento",
-  },{
-    name: "Teste 7",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Noticia",
-  },{
-    name: "Teste 8",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Evento",
-  },
-  {
-    name: "Teste 9",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Noticia",
-  },{
-    name: "Teste 10",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Evento",
-  },{
-    name: "Teste 11",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Noticia",
-  },{
-    name: "Teste 12",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Evento",
-  },
-  {
-    name: "Teste 13",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Noticia",
-  },{
-    name: "Teste 14",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Evento",
-  },{
-    name: "Teste 15",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Noticia",
-  },{
-    name: "Teste 16",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Evento",
-  },
-];
+import api from "../../api/index.js";
 
 const Present = ({ navigation }) => {
-  const getNews = () => {
-    return list.filter(n => n.type === "Noticia");
+  const [listNews, setListNews] = useState([]);
+  const [listEvents, setListEvents] = useState([]);
+
+  const getNews = async () => {
+    const response = await api.get('/news/type/Noticia');
+    if (response.status === 200) {
+      setListNews(response.data.news);
+    }
   }
 
-  const getEvents = () => {
-    return list.filter(n => n.type === "Evento");
+  const getEvents = async () => {
+    const response = await api.get('/news');
+    if (response.status === 200) {
+      setListEvents(response.data.news.filter(news => news.type === "Evento"));
+    }
   }
+
+  useEffect(() => {
+    getEvents();
+    getNews();
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -118,13 +47,13 @@ const Present = ({ navigation }) => {
       <View>
         <View style={styles.headerContainer}>
           <Text style={styles.secundTitles}>Notícias mais recentes</Text>
-          <TouchableOpacity style={styles.linksButton}>
+          <TouchableOpacity style={styles.linksButton} onPress={() => navigation.navigate('News')}>
             <Text style={styles.links}>Todas <Icon name="right"/></Text>
           </TouchableOpacity>
         </View>
         <FlatList
           horizontal={true}
-          data={getNews()}
+          data={listNews}
           renderItem={({item}) => {
             return (
               <Pressable onPress={() => navigation.navigate('New', {new: item})}>
@@ -137,13 +66,13 @@ const Present = ({ navigation }) => {
       <View>
         <View style={styles.headerContainer}>
           <Text style={styles.secundTitles}>Eventos mais recentes</Text>
-          <TouchableOpacity style={styles.linksButton}>
+          <TouchableOpacity style={styles.linksButton} onPress={() => navigation.navigate('Events')}>
             <Text style={styles.links}>Todas <Icon name="right"/></Text>
           </TouchableOpacity>
         </View>
         <FlatList
           horizontal={true}
-          data={getEvents()}
+          data={listEvents}
           renderItem={({item}) => {
             return (
               <Pressable onPress={() => navigation.navigate('Event', {event: item})}>
