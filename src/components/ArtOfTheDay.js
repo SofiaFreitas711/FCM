@@ -6,7 +6,7 @@ import {
   Image,
 } from 'react-native';
 
-const NewsItem = (props) => {
+const ArtOfTheDay = (props) => {
   return (
     <View style={styles.container}>
       <Image
@@ -14,11 +14,12 @@ const NewsItem = (props) => {
         style={styles.image}
       />
       <View style={styles.texts}>
-        <Text style={styles.description}>{props.news.info.slice(0, 28)}...</Text>
+        <Text style={styles.description}>OBRA DO DIA</Text>
         <Text style={styles.title}>{props.news.name}</Text>
+        <Text style={styles.artist}>{props.news.artist}</Text>
       </View>
       <Image
-        source={require("../../assets/News/News.png")} 
+        source={require("../assets/ArtOfTheDay/ArtOfTheDay.png")} 
         style={styles.vector}
       />
     </View>
@@ -30,8 +31,8 @@ const styles = StyleSheet.create({
     position: 'relative',
     margin: 10,
     borderRadius: 15,
-    width: 240,
-    height: 240,
+    width: 340,
+    height: 292,
   },
   image: {
     position: 'absolute',
@@ -48,13 +49,22 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 11,
     color: 'white',
-    marginVertical: 2,
+    marginVertical: 0,
+    textAlign: 'right',
   },
   title: {
-    fontSize: 18,
+    fontSize: 27,
+    fontWeight: 'bold',
+    color: 'white',
+    marginVertical: 2,
+    textAlign: 'right',
+  },
+  artist: {
+    fontSize: 15,
     fontWeight: 'bold',
     color: 'white',
     marginVertical: 4,
+    textAlign: 'right',
   },
   vector: {
     position: 'absolute',
@@ -65,4 +75,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NewsItem;
+export default ArtOfTheDay;

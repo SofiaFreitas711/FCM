@@ -26,9 +26,9 @@ const Present = ({ navigation }) => {
   }
 
   const getEvents = async () => {
-    const response = await api.get('/news');
+    const response = await api.get('/news/type/Evento');
     if (response.status === 200) {
-      setListEvents(response.data.news.filter(news => news.type === "Evento"));
+      setListEvents(response.data.news);
     }
   }
 
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   bg: {
     position: 'absolute',
-    top:-40,
+    top:-75,
     left:-20,
   },
   menuIcon: {
