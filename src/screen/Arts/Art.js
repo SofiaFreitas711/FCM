@@ -21,12 +21,20 @@ const Art = ({navigation, route}) => {
   const [loggedUser, setLoggedUser] = useState(null)
 
   async function favs(){
-    if(fav==false && loggedUser){
-      loggedUser.favoritesArt.push(art._id)
-      setFav(true)
-      await axios.patch(`https://surrealismoapi.onrender.com/users/${loggedUser._id}`,{
-        favoritesArt: favoritesArt.push(art._id),
-      },{
+    let favs = loggedUser.favoritesArt;
+    if(favs.find(favourite => favourite == art._id)){
+      favs.pop(art._id)
+      console.log(favs);
+      setLoggedUser((prevState)=>{
+        return{
+          ...prevState,
+          favoritesArt: favs
+        }
+
+      })
+      //loggedUser.favoritesArt.push(art._id)
+      setFav(false)
+      await axios.patch(`https://surrealismoapi.onrender.com/users/${loggedUser._id}`,loggedUser,{
         headers:{
           'Accept': 'application/json',
           'Authorization': `Bearer ${await AsyncStorage.getItem('token')}`
@@ -34,19 +42,22 @@ const Art = ({navigation, route}) => {
       })
     }else
       if(loggedUser){
-        loggedUser.favoritesArt.pop(art._id)
-        setFav(false)
-        await axios.patch(`https://surrealismoapi.onrender.com/users/${loggedUser._id}`,{
-          favoritesArt: favoritesArt.pop(art._id),
-      },{
+        favs = loggedUser.favoritesArt.push(art._id)
+        setFav(true)
+        setLoggedUser((prevState)=>{
+          return{
+            ...prevState,
+            favoritesArt: favs
+          }
+  
+        })
+        await axios.patch(`https://surrealismoapi.onrender.com/users/${loggedUser._id}`,loggedUser,{
         headers:{
           'Accept': 'application/json',
           'Authorization': `Bearer ${await AsyncStorage.getItem('token')}`
         }
       })
       }
-      
-   console.log(loggedUser.favoritesArt)
   }
 
   async function getArtist(artistId){
@@ -75,7 +86,6 @@ const Art = ({navigation, route}) => {
     setArt(route.params.art)
     getArtist(route.params.art.artist)
     getUser()
-    //console.log(loggedUser)
   }, [])
 
   return (
@@ -85,10 +95,10 @@ const Art = ({navigation, route}) => {
           <Image source={{uri: art.image}} style={styles.artImage}></Image>
           <SvgUri uri="https://osithual.sirv.com/Images/FCM/Group%2039.svg" style={styles.bg}/>
           <Pressable onPress={()=>favs()} >
-            {fav==false &&
+            {fav == false &&
               <Icon name="cards-heart-outline" size={40} color="#54c5d0" style={[styles.icon]}></Icon>
             }
-            {fav==true &&
+            {fav==true  &&
               <Icon name="cards-heart" size={40} color="#54c5d0" style={[styles.icon]}></Icon>
             }
           </Pressable>
