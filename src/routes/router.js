@@ -52,7 +52,7 @@ const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigation() {
   return (
-    <Drawer.Navigator initialRouteName="Home" drawerContent={props => <Menu {...props} />} screenOptions={{
+    <Drawer.Navigator initialRouteName="Login" drawerContent={props => <Menu {...props} />} screenOptions={{
       headerTitle: "",
       headerTitleStyle: { color: '#fff' },
       headerStyle: {
@@ -107,36 +107,34 @@ export default function DrawerNavigation() {
 
 
 export function Router() {
-  const [isFirstLaunch, setIsFirstLaunch] = useState(null);
+  const [firstLaunch, setFirstLaunch] = useState(null);
 
-
-  useEffect(() => {
-    async function seekLaunch() {
-      const appData = await AsyncStorage.getItem('isFirstLaunch');
+  React.useEffect(() => {
+    async function setData() {
+      const appData = await AsyncStorage.getItem("appLaunched");
       if (appData == null) {
-        setIsFirstLaunch(true);
-        AsyncStorage.setItem('isFirstLaunch', 'false');
+        setFirstLaunch(true);
+        AsyncStorage.setItem("appLaunched", "false");
       } else {
-        setIsFirstLaunch(false);
+        setFirstLaunch(false);
       }
     }
-    seekLaunch()
-
-    // AsyncStorage.removeItem('isFirstLaunch');
+    setData();
   }, []);
-  return (
-    isFirstLaunch != null && (
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={isFirstLaunch ? 'Login' : 'Onboarding'}>
 
+  return (
+    firstLaunch != null && (
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Login'>
+        
         {/* <Stack.Screen name="LoginToken" component={LoginToken} /> */}
         <Stack.Screen name="Drawer" component={DrawerNavigation} />
 
-        {isFirstLaunch && (
+        {firstLaunch && (
           <Stack.Screen
             name="Onboarding"
             component={Onboarding}
           />
-        )}
+          )}
 
         <Stack.Screen name="Login" component={Login} />
 
