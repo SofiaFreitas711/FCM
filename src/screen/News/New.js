@@ -3,32 +3,54 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 
-const New = ({navigation}) => {
+const New = ({navigation, route}) => {
+  const item = route.params.new
+
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.buttonBack} onPress={() => navigation.navigate('Present')}>
-        <Text style={styles.buttonText}>&#x276C;</Text>
-      </TouchableOpacity>
-    </View>
+    <ScrollView style={styles.container}>
+      <View style={styles.imageContainer}>
+      <Image
+        source={{uri: item.image}}
+        style={styles.image}
+      />
+      <Image
+        source={require("../../assets/News/EventsSpecific.png")} 
+        style={styles.vector}
+      />
+        </View>
+      <View style={styles.titleContainer}>
+        <Text style={styles.description}>{item.description}</Text>
+        <Text style={styles.title}>{item.name}</Text>
+      </View>
+      <View style={styles.text}>
+        <Text style={styles.textTitle}>{item.text}</Text>
+
+      </View>
+    </ScrollView>
+
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
+  titleContainer: {
     flex: 1,
-    margin: 20,
-    marginBottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  buttonBack: {
-    marginLeft: 5,
-  },
-  buttonText: {
+  title: {
+    fontSize: 24,
+    fontWeight: '600',
     color: 'black',
-    fontSize: 20,
   },
+  image: {
+    width: '100%',
+    height: 300,
+  }
 });
 
 export default New;
