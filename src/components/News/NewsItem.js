@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 
 const NewsItem = (props) => {
+  console.log(props);
+
   return (
     <View style={styles.container}>
       <Image
@@ -14,7 +16,7 @@ const NewsItem = (props) => {
         style={styles.image}
       />
       <View style={styles.texts}>
-        <Text style={styles.description}>{props.news.description}</Text>
+        <Text style={styles.description}>{props.news.info.slice(0, 28)}...</Text>
         <Text style={styles.title}>{props.news.name}</Text>
       </View>
       <Image

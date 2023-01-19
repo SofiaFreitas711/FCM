@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,58 +9,21 @@ import {
 } from 'react-native';
 import { SvgUri } from 'react-native-svg';
 import EventsItem from '../../components/News/EventsItem.js';
-
-list = [
-  {
-    name: "Teste 1",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-  }, {
-    name: "Teste 2",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-  }, {
-    name: "Teste 3",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-  }, {
-    name: "Teste 4",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-  },
-  {
-    name: "Teste 5",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-  }, {
-    name: "Teste 6",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-  }, {
-    name: "Teste 7",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Noticia",
-  }, {
-    name: "Teste 8",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Evento",
-  },
-  {
-    name: "Teste 9",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Noticia",
-  }, {
-    name: "Teste 10",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/72/c4/5d/right-in-the-city-centre.jpg?w=1200&h=-1&s=1",
-    description: "blablabla",
-    type: "Evento",
-  }
-];
+import api from "../../api/index.js";
 
 const Events = ({ navigation }) => {
+  const [listEvents, setListEvents] = useState([]);
+
+  const getEvents = async () => {
+    const response = await api.get('/news')
+    if (response.status === 200) {
+      setListEvents(response.data.news.filter(event => event.type === "Evento"));
+    }
+  }
+
+  useEffect(() => {
+    getEvents()
+  }, [])
   return (
     <View style={styles.container}>
       <SvgUri uri="https://osithual.sirv.com/Surrealismo/fundo.svg" style={styles.bg}/>
@@ -69,7 +32,7 @@ const Events = ({ navigation }) => {
       </TouchableOpacity>
       <Text style={styles.title}>Eventos</Text>
       <FlatList
-        data={list}
+        data={listEvents}
         renderItem={({ item }) => {
           return (
             <Pressable style={styles.list} onPress={() => navigation.navigate('Event', { event: item })}>

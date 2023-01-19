@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 const EventItem = (props) => {
+  console.log(props);
   return (
     <View style={styles.container}>
       <Image
@@ -14,7 +15,7 @@ const EventItem = (props) => {
         style={styles.image}
       />
       <View style={styles.texts}>
-        <Text style={styles.description}>{props.event.description}</Text>
+        <Text style={styles.description}>{props.event.info}...</Text>
         <Text style={styles.title}>{props.event.name}</Text>
       </View>
       <Image
