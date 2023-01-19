@@ -1,54 +1,70 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
   View,
   Image,
   Pressable,
-  Alert
+  Alert,
+  Dimensions
 } from 'react-native';
 import { SvgUri } from 'react-native-svg';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import axios from 'axios';
 
-const Art = ({navigation}) => {
+const Art = ({navigation, route}) => {
   const [fav, setFav] = useState(false)
-  
-  function change(){
-    console.log('tou aqui')
-  }
+  const [art, setArt] = useState(null)
+  const [artist, setArtist] = useState(null)
+
   function favs(){
     if(fav==false){
       setFav(true)
     }else
       setFav(false)
-    // setFav==false? true:false
    console.log(fav)
   }
 
+  async function getArtist(){
+    const response = await axios.get(`https://surrealismoapi.onrender.com/artists/${art.artist}`)
+    if(response.status == 200){
+      setArtist(response.data.artist)
+      console.log(response.data.artist)
+     }
+  }
+
+  useEffect(()=>{
+    setArt(route.params.art)
+    getArtist()
+
+  })
+
   return (
     <View style={styles.titleContainer}>
-      {/* <Image></Image> */}
-      <SvgUri uri="https://osithual.sirv.com/Images/FCM/Group%2039.svg" style={styles.bg}/>
-      <Pressable onPress={()=>favs()} >
-        {fav==false &&
-          <Icon name="cards-heart-outline" size={40} color="#54c5d0" style={[styles.icon]}></Icon>
-        }
-        {fav==true &&
-          <Icon name="cards-heart" size={40} color="#54c5d0" style={[styles.icon]}></Icon>
-        }
-      </Pressable>
-      <Pressable onPress={change}><Image style={styles.image} source={{uri:'https://s4.static.brasilescola.uol.com.br/img/2019/09/panda.jpg'}}></Image></Pressable>
-      <View style={styles.info}>
-        <Text style={styles.info.autor}>Nome</Text>
-        <Text style={styles.info.obra}>Obra</Text>
-      </View>
-      <View style={styles.detalhes}>
-        <Text><Text style={styles.detalhes.titulo}>Ano</Text></Text>
-        <Text><Text style={styles.detalhes.titulo}>Técnica</Text></Text>
-        <Text><Text style={styles.detalhes.titulo}>Localização</Text></Text>
-      </View>
-     
-      
+      {art && artist &&
+        <View style={styles.titleContainer}>
+          <Image source={{uri: art.image}} style={styles.artImage}></Image>
+          <SvgUri uri="https://osithual.sirv.com/Images/FCM/Group%2039.svg" style={styles.bg}/>
+          <Pressable onPress={()=>favs()} >
+            {fav==false &&
+              <Icon name="cards-heart-outline" size={40} color="#54c5d0" style={[styles.icon]}></Icon>
+            }
+            {fav==true &&
+              <Icon name="cards-heart" size={40} color="#54c5d0" style={[styles.icon]}></Icon>
+            }
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate('Artist', {artist: art.artist})}><Image style={styles.image} source={{uri:artist.image}}></Image></Pressable>
+          <View style={styles.info}>
+            <Text style={styles.info.autor}>{artist.name}</Text>
+            <Text style={styles.info.obra}>{art.name}</Text>
+          </View>
+          <View style={styles.detalhes}>
+            <Text style={styles.text}><Text style={styles.detalhes.titulo}>Ano</Text>{art.date}</Text>
+            <Text style={styles.text}><Text style={styles.detalhes.titulo}>Técnica</Text>{art.technique}</Text>
+            <Text style={styles.text}><Text style={styles.detalhes.titulo}>Localização</Text>{art.location}</Text>
+          </View>
+     </View>
+    }
     </View>
   )
 }
@@ -78,7 +94,8 @@ const styles = StyleSheet.create({
     },
     obra:{
       fontWeight: 'bold',
-      fontSize: 30,
+      width: 120,
+      fontSize: 20,
       color: '#333333'
     }
   },
@@ -97,12 +114,23 @@ const styles = StyleSheet.create({
     position: 'absolute',
     borderRadius: 50,
     top: 440,
-    left: 65
+    left: 65,
+    backgroundColor: '#ffffff'
   },
   icon:{
     position: 'absolute',
     top:15,
     right: 10
+  },
+  artImage:{
+    position:'absolute',
+    top:0,
+    left:0,
+    width: 380,
+    height: 400,
+  },
+  text:{
+    color: '#333333'
   }
 });
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,15 +10,37 @@ import {
 } from 'react-native';
 
 import { SvgUri } from 'react-native-svg';
-import Swiper from 'react-native-swiper';
+import axios from 'axios';
 
 
 const Arts = ({navigation}) => {
   const [sliderId, setSliderId] = useState(0)
   const [status, setStatus] = useState('Obras')
+  const [artists, setArtists] = useState(null)
+  const [arts, setArts] = useState(null)
+  const [techniques, setTechniques] = useState(null)
 
-  const artist1 = {'nome': 'Carlos Eduardo','nasc': 1932, 'morte': 2014, 'obras':['https://osithual.sirv.com/Images/FCM/FCM00006.jpg', 'https://osithual.sirv.com/Images/FCM/FCM00007.jpg', 'https://osithual.sirv.com/Images/FCM/FCM00013.jpg', 'https://osithual.sirv.com/Images/FCM/FCM02909.jpg','https://osithual.sirv.com/Images/FCM/FCM02909.jpg','https://osithual.sirv.com/Images/FCM/FCM02909.jpg']}
+
+  async function getArtists() {
+    const response = await axios.get('https://surrealismoapi.onrender.com/artists');
+   if(response.status == 200){
+    setArtists(response.data.artist)
+   }
+  }
   
+  async function getArts() {
+    const response = await axios.get('https://surrealismoapi.onrender.com/arts');
+   if(response.status == 200){
+    setArts(response.data.arts)
+   }
+  }
+
+  async function getTecniques(){
+    const response = await axios.get('https://surrealismoapi.onrender.com/techniques')
+    if(response.status == 200){
+      setTechniques(response.data.technique)
+     }
+  }
   
   const ListTab = [
     {
@@ -27,7 +49,7 @@ const Arts = ({navigation}) => {
     {
         status: 'Técnicas'
     }
-]
+  ]
 
   const setStatusFilter = status => {
           setStatus(status)
@@ -36,10 +58,18 @@ const Arts = ({navigation}) => {
   function swipeIndex(id){
     setSliderId(id)
   }
+  
+  useEffect(()=>{
+    getArtists()
+    getArts()
+    getTecniques()
+  })
 
   return (
     <View style={styles.titleContainer}>
-      <SvgUri uri="https://osithual.sirv.com/Surrealismo/fundo.svg" style={styles.bg}/>
+      {artists && arts &&
+      <View style={styles.titleContainer}>
+      <SvgUri uri="https://osithual.sirv.com/Images/FCM/fundo.svg" style={styles.bg}/>
       <Text style={styles.title}>Surrealismo</Text>
     
       <View style={styles.tabs}>
@@ -51,31 +81,47 @@ const Arts = ({navigation}) => {
       </View>
       {status == 'Obras' &&
         <ScrollView style={styles.swiper}>
-          <Text style={styles.artistName}>{artist1.nome}</Text>
-          <Text style={styles.artistDates}>{artist1.nasc}-{artist1.morte}</Text>
-          <ScrollView horizontal={true}>
-            {
-              artist1.obras.map((item)=>{
-                  return(
-                      <Image source={{uri:item}} style={styles.image}></Image>
-                  
-                  )
-              })
-            }
-          </ScrollView>
-        
+          {
+            artists.map((artist, index)=>(
+              <ScrollView>
+                <Text style={styles.artistName}>{artist.name}</Text>
+                <Text style={styles.artistDates}>{artist.born}-{artist.death}</Text>
+                <ScrollView horizontal={true}>
+                  {arts.filter(art => art.artist == artist._id).map(filteredArt =>(
+                    <Pressable onPress={() => navigation.navigate('Art', {art: filteredArt})}><Image source={{uri:filteredArt.image}} style={styles.image}></Image></Pressable>
+                    
+                  ))}
+                </ScrollView>
+              </ScrollView>
+              
+            ))
+          }
         </ScrollView>
       }
       {
         status == 'Técnicas' && 
-        <View>
-            <Text>Técnicas</Text>
-        </View>
+      
+            <ScrollView style={styles.swiper}>
+              {
+                techniques.map((technic, index)=>(
+                  <ScrollView>
+                    <Text style={styles.artistName}>{technic.name}</Text>
+                    <ScrollView horizontal={true}>
+                      {arts.filter(art => art.technique == technic.name).map(filteredTechniques =>(
+                        <Pressable onPress={() => navigation.navigate('Art', {art: filteredArt})}><Image source={{uri:filteredTechniques.image}} style={styles.image}></Image></Pressable>
+                      ))}
+                    </ScrollView>
+                  </ScrollView>
+                ))
+              }
+            </ScrollView>        
       }          
             
                         
-      
+      </View>
+      }
     </View>
+    
   )
 }
 
@@ -112,44 +158,6 @@ const styles = StyleSheet.create({
   textTabActive:{
     color:'#E31E27'
   },
-  // tab:{
-  //   position: 'absolute',
-  //   flexDirection:'row',
-  //   top:183,
-  //   alignSelf: 'center',
-  //   color: '#333333',  
-  //   paddingHorizontal:50,      
-  //   name:{ 
-                   
-  //       color: '#333333'
-  //   } 
-  // },
-  // tabActive:{
-  //   position: 'absolute',
-  //   flexDirection:'row',
-  //   top:183,
-  //   left:15,
-  //   alignSelf: 'center',
-  //   color: '#333333',  
-  //   paddingHorizontal:50,      
-  //   name:{ 
-  //     paddingHorizontal:50,
-  //     color: '#E31E27',
-  //     fontWeight: 'bold',
-  //   } 
-  // },
-  // tabNotActive:{
-  //   position: 'absolute',
-  //   flexDirection:'row',
-  //   top:183,
-  //   alignSelf: 'center',
-  //   color: '#333333',  
-  //   paddingHorizontal:50,      
-  //   name:{ 
-  //     paddingHorizontal:50,
-  //     color: '#333333'
-  //   } 
-  // },
   swiper: {
     top: 200,    
   }, 

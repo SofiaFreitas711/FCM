@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,10 +11,31 @@ import {
 import { SvgUri } from 'react-native-svg';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import axios from 'axios';
 
-const Artist = ({navigation}) => {
+const Artist = ({navigation, route}) => {
   const [sliderId, setSliderId] = useState(0)
   const [fav, setFav] = useState(false)
+  
+  const [artist, setArtist] = useState(null)
+  const [artistInfo, setArtistInfo] = useState(null)
+  const [art, setArt] = useState(null)
+
+  async function getArtist(){
+    const response = await axios.get(`https://surrealismoapi.onrender.com/artists/${artist}`)
+    if(response.status == 200){
+      setArtistInfo(response.data)
+      console.log(response.data)
+     }
+  }
+
+  async function getArt(){
+    const response = await axios.get('https://surrealismoapi.onrender.com/arts')
+    if(response.status == 200){
+      setArt(response.data.arts)
+      console.log(response.data.arts)
+     }
+  }
 
   function swipeIndex(id){
     setSliderId(id)
@@ -29,28 +50,45 @@ const Artist = ({navigation}) => {
    console.log(fav)
   }
 
+  useEffect(()=>{
+    setArtist(route.params.artist)
+    getArtist()
+    getArt()
+  })
+
   return (
     <View style={styles.titleContainer}>
-      <SvgUri uri="https://osithual.sirv.com/Images/FCM/fundo.svg" style={styles.bg}/>
-      <Image source={{uri:'https://osithual.sirv.com/Images/FCM/cs.png'}} style={styles.artist}></Image>
-      <SvgUri uri="https://osithual.sirv.com/Images/FCM/gradiente.svg" style={styles.gradient}/>
-      <Pressable onPress={()=>favs()} >
-        {fav==false &&
-          <Icon name="cards-heart-outline" size={40} color="#54c5d0" style={[styles.icon]}></Icon>
-        }
-        {fav==true &&
-          <Icon name="cards-heart" size={40} color="#54c5d0" style={[styles.icon]}></Icon>
-        }
-      </Pressable>
-      <View style={styles.tab}>
-            <Text style={[sliderId == 0 ? styles.tabActive : styles.tabNotActive]}>Biografia</Text>
-            <Text style={[sliderId == 1 ? styles.tabActive : styles.tabNotActive]}>Obras</Text>
-      </View>
+      {artistInfo && art &&
+        <View style={styles.titleContainer}>
+          <SvgUri uri="https://osithual.sirv.com/Images/FCM/fundo.svg" style={styles.bg}/>
+          <Image source={{uri:artistInfo.image}} style={styles.artist}></Image>
+          <SvgUri uri="https://osithual.sirv.com/Images/FCM/gradiente.svg" style={styles.gradient}/>
+          <Pressable onPress={()=>favs()} >
+            {fav==false &&
+              <Icon name="cards-heart-outline" size={40} color="#54c5d0" style={[styles.icon]}></Icon>
+            }
+            {fav==true &&
+              <Icon name="cards-heart" size={40} color="#54c5d0" style={[styles.icon]}></Icon>
+            }
+          </Pressable>
+          <View style={styles.tab}>
+                <Text style={[sliderId == 0 ? styles.tabActive : styles.tabNotActive]}>Biografia</Text>
+                <Text style={[sliderId == 1 ? styles.tabActive : styles.tabNotActive]}>Obras</Text>
+          </View>
 
-      <Swiper index={0} style={styles.swiper} loop={false} showsPagination={false} onIndexChanged={(idx) => swipeIndex(idx)}>
-        <ScrollView><Text>Hoy</Text></ScrollView>
-        <ScrollView><Text>Só pra testar</Text></ScrollView>
-      </Swiper>
+          <Swiper index={0} style={styles.swiper} loop={false} showsPagination={false} onIndexChanged={(idx) => swipeIndex(idx)}>
+            <ScrollView><Text>{artistInfo.info}</Text></ScrollView>
+            <ScrollView>
+                {art.filter(art => art.artist == artistInfo._id).map(filteredArt =>(
+                    <Pressable onPress={() => navigation.navigate('Art', {art: filteredArt})}><Image source={{uri:filteredArt.image}} style={styles.image}></Image></Pressable>
+                    
+                  ))
+                }
+            </ScrollView>
+          </Swiper>
+        </View>
+
+  }
       
     </View>
   )

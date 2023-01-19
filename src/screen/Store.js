@@ -16,7 +16,7 @@ const Store = ({navigation}) => {
   async function getOffers() {
     const response = await axios.get('https://surrealismoapi.onrender.com/shop');
    if(response.status == 200){
-    setOffers(JSON.stringify(response.data.shop))
+    setOffers(response.data.shop)
     console.log(response.data.shop)
    }
   }
@@ -27,17 +27,17 @@ const Store = ({navigation}) => {
   let list = axios.get('https://surrealismoapi.onrender.com/shop')
 
   const [expanded, setExpanded] = React.useState(true);
-  const [offers, setOffers] = React.useState();
+  const [offers, setOffers] = React.useState(null);
   const [trade, setTrade] = React.useState(false);
-  const [points, setPoints] = React.useState(1500)
+  const [points, setPoints] = React.useState(5000)
 
   const handlePress = () => setExpanded(!expanded);
 
-  function exchange() {
-    if(points < offers.amountPoints){
+  function exchange(item) {
+    if(points < item){
      Alert.alert('Ainda não é possivel')
     }else{
-      let trade = eval(points - offers.amountPoints).toString()
+      let trade = eval(points - item).toString()
       setPoints(trade)
       Alert.alert(`${points}`)
       setTrade(true)
@@ -63,24 +63,24 @@ const Store = ({navigation}) => {
           
           <ScrollView>
             {
-            offers.map((item) => {
-                <List.Accordion
-                  title={item.name}
-                  expanded={expanded}
-                  onPress={handlePress}
-                  titleStyle={{ color:'white' }}
-                  style={points >= item.amountPoints? styles.container: styles.containerOff}>
-                  <List.Item title={item.info} titleStyle={{ color:'white' }} style={points >= item.amountPoints? styles.details: styles.detailsOff}/>               
-                  <List.Item title={`Custo:${offers.amountPoints}`} titleStyle={{ color:'white' }} style={points >= item.amountPoints? styles.cost: styles.costOff}></List.Item>
-                  {trade == false &&
-                    <Pressable style={styles.teste} onPress={exchange}><Text style={styles.teste.text}>Trocar</Text></Pressable>
-                  }
-                  {trade == true &&
-                    <Pressable style={styles.teste}><Text style={styles.teste.textTrade}>Troca efetuada</Text></Pressable>
-                  }
-                  
-                </List.Accordion>
-              })
+              offers.map((item, index) => (
+                  <List.Accordion
+                    title={item.name}
+                    expanded={expanded}
+                    onPress={handlePress}
+                    titleStyle={{ color:'white' }}
+                    style={points >= item.amountPoints? styles.container: styles.containerOff}>
+                    <List.Item title={item.info} titleStyle={{ color:'white', width: 140 }} style={points >= item.amountPoints? styles.details: styles.detailsOff}/>               
+                    <List.Item title={`Custo:${item.amountPoints}`} titleStyle={{ color:'white' }} style={points >= item.amountPoints? styles.cost: styles.costOff}></List.Item>
+                    {trade == false &&
+                      <Pressable style={styles.teste} onPress={()=> exchange(item.amountPoints)}><Text style={styles.teste.text}>Trocar</Text></Pressable>
+                    }
+                    {trade == true &&
+                      <Pressable style={styles.teste}><Text style={styles.teste.textTrade}>Troca efetuada</Text></Pressable>
+                    }
+                    
+                  </List.Accordion>
+              ))
             }
             
           </ScrollView>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   bg: {
     position: 'absolute',
     top:-40,
-    left:-125,
+    left:-30,
   },
   titleContainer: {
     flex: 1,
@@ -112,7 +112,8 @@ const styles = StyleSheet.create({
     borderRadius: 11,
     width: 324,
     height: 88,
-    // marginTop: 40,
+    marginTop: 60,
+    
     
   },
   containerOff:{
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
     position:'absolute',
     flexDirection: 'row',
     top: 20,
-    right: -100,
+    right: -10,
     width: 75,
     height: 25,
     justifyContent: 'center',
