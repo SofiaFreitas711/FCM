@@ -108,7 +108,7 @@ const Arts = ({navigation}) => {
                     <Text style={styles.artistName}>{technic.name}</Text>
                     <ScrollView horizontal={true}>
                       {arts.filter(art => art.technique == technic.name).map(filteredTechniques =>(
-                        <Pressable onPress={() => navigation.navigate('Art', {art: filteredArt})}><Image source={{uri:filteredTechniques.image}} style={styles.image}></Image></Pressable>
+                        <Pressable onPress={() => navigation.navigate('Art', {art: filteredTechniques})}><Image source={{uri:filteredTechniques.image}} style={styles.image}></Image></Pressable>
                       ))}
                     </ScrollView>
                   </ScrollView>
