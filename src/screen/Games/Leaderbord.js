@@ -14,8 +14,7 @@ const Leaderbord = ({ navigation, route }) => {
   const result = route.params.result
   const points = route.params.points
 
-  console.log('Teste');
-  console.log(game.leaderbord[0]);
+  console.log(game.leaderbord);
 
   return (
     <View>
@@ -31,7 +30,9 @@ const Leaderbord = ({ navigation, route }) => {
       </View>
       <SvgUri uri="https://phyrowns.sirv.com/Surrealismo/LeaderBordBG.svg" style={styles.bgLeaderBord}/>
       <View style={styles.leaderbord}>
-        <View style={[styles.leaders, styles.position2]}>
+        {
+          game.leaderbord.length > 1 &&
+          <View style={[styles.leaders, styles.position2]}>
           <Image
             source={{ uri: game.leaderbord[1].image }}
             style={styles.imagePosition2}
@@ -39,7 +40,10 @@ const Leaderbord = ({ navigation, route }) => {
           <Text style={styles.name}>2º - {game.leaderbord[1].name}</Text>
           <Text style={styles.points}>{game.leaderbord[1].points}</Text>
         </View>
-        <View style={[styles.leaders]}>
+        }
+        {
+          game.leaderbord.length > 0 &&
+          <View style={[styles.leaders]}>
           <Image
             source={{ uri: game.leaderbord[0].image }}
             style={styles.imagePosition1}
@@ -47,7 +51,10 @@ const Leaderbord = ({ navigation, route }) => {
           <Text style={styles.name}>1º -{game.leaderbord[0].name}</Text>
           <Text style={styles.points}>{game.leaderbord[0].points}</Text>
         </View>
-        <View style={[styles.leaders, styles.position3]}>
+        }
+        {
+          game.leaderbord.length > 2 &&
+          <View style={[styles.leaders, styles.position3]}>
           <Image
             source={{ uri: game.leaderbord[2].image }}
             style={styles.imagePosition3}
@@ -55,6 +62,7 @@ const Leaderbord = ({ navigation, route }) => {
           <Text style={styles.name}>3º -{game.leaderbord[2].name}</Text>
           <Text style={styles.points}>{game.leaderbord[2].points}</Text>
         </View>
+        }
       </View>
         <FlatList
           showsVerticalScrollIndicator={false}
