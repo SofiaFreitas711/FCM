@@ -12,6 +12,8 @@ import ImageComponent from './ImageComponent.js';
 const QuizzGame = (props, {navigation}) => {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [alternativeSelected, setAlternateSelected] = useState([])
+  
+  // console.log(props);
   const game = props.game;
 
   const selectAlternative = (alternative) => {
@@ -39,7 +41,7 @@ const QuizzGame = (props, {navigation}) => {
   return (
       <View style={styles.container}>
         <SvgUri uri="https://phyrowns.sirv.com/Surrealismo/quizz.svg" style={styles.bg}/>
-        <Text style={styles.title}>{game[currentQuestion].question}</Text>
+        {/* <Text style={styles.title}>{game[currentQuestion].question}</Text>
         { game[currentQuestion].image ? 
           <ImageComponent image={game[currentQuestion].image}/>
         : ''}
@@ -54,7 +56,7 @@ const QuizzGame = (props, {navigation}) => {
               </TouchableOpacity>
             )
           }}
-        />
+        /> */}
         <TouchableOpacity style={styles.nextButton} onPress={() => game.length - 1 > currentQuestion ? nextQuestion() : finalizeQuizz()}>
           {
             game.length - 1 > currentQuestion ? <Text>Proxima</Text> : <Text>Finalizar</Text>

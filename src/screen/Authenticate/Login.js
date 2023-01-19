@@ -21,12 +21,11 @@ const Login = ({ navigation }) => {
       password: password,
     })
       .then(async function (response) {
-        console.log(response.data);
 
         await AsyncStorage.setItem("token", response.data.accessToken);
         await AsyncStorage.setItem("userID", response.data.id);
         await AsyncStorage.setItem("type", response.data.type);
-        navigation.navigate('HomePage')
+        navigation.navigate('Games')
       })
       .catch(function (error) {
         console.log(error.response.data);

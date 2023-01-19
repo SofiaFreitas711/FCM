@@ -13,6 +13,18 @@ import PeddyPapper from "../../components/Games/PeddyPapper.js";
 const Game = ({navigation, route}) => {
   const game = route.params.game;
 
+  const getGame = async () => {
+    const response = await api.get(`/games/${game._id}`, {
+      headers: {
+        'Authorization': `Bearer ${await AsyncStorage.getItem('token')}`
+      }
+    })
+    if (response.status == 200) {
+      console.log(JSON.stringify(response));
+      return response.data.msg.questions;
+    }
+  }
+
   const finalizeGame = (rightQuestion) => {
     const questionPoint = game.points / game.questions.length 
     const points = questionPoint * rightQuestion
@@ -31,7 +43,7 @@ const Game = ({navigation, route}) => {
           <Text style={styles.title}>{game.name}</Text>
         </View>
       {
-        game.type === "Quizz" ? <GameQuizz finalizeQuizz={finalizeGame} game={game.questions}/>
+        game.type === "Quizz" ? <GameQuizz finalizeQuizz={finalizeGame} game={getGame()}/>
         : game.type === "Combinação" ? <GameCombination/>
         : <PeddyPapper/>
       }
