@@ -6,11 +6,14 @@ import {
   TouchableOpacity,
   FlatList,
   Pressable,
+  ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { SvgUri } from 'react-native-svg';
 import NewsItem from '../../components/News/NewsItem.js';
 import EventsItem from '../../components/News/EventsItem.js';
+import FeaturedNews from '../../components/FeaturedNews/FeaturedNews.js';
+
 
 import api from "../../api/index.js";
 
@@ -38,11 +41,12 @@ const Present = ({ navigation }) => {
   }, [])
 
   return (
+    <ScrollView style={styles.allContainer}>
     <View style={styles.container}>
       <SvgUri uri="https://osithual.sirv.com/Surrealismo/fundo.svg" style={styles.bg}/>
       <Text style={styles.title}>Atualidade</Text>
-      <View>
-        {/* Noticia em destaque */}
+      <View style={styles.featuredNews}>
+      <FeaturedNews />
       </View>
       <View>
         <View style={styles.headerContainer}>
@@ -81,14 +85,26 @@ const Present = ({ navigation }) => {
             )
           }}
         />
+        </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
+  allContainer: {
+    marginTop: -53,
+  },
   container: {
-    margin: 20,
+    marginTop: 60,
+    marginLeft: 20,
+  },
+  featuredNews: {
+    marginTop: 10,
+    alignItems: 'center',
+    width: "110%",
+    marginLeft: -20,
+    height: 300,
   },
   bg: {
     position: 'absolute',
