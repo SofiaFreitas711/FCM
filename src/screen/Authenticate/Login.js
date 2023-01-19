@@ -44,7 +44,7 @@ const Login = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-      <SvgUri uri="https://osithual.sirv.com/Surrealismo/fundo.svg" style={styles.bg}/>
+        <SvgUri uri="https://atuousti.sirv.com/FCM/BgAuth.svg" style={styles.bg} />
         <View style={styles.containerLogo}>
           <SvgUri
             uri="https://atuousti.sirv.com/FCM/logo.svg"
@@ -70,12 +70,7 @@ const Login = ({ navigation }) => {
             value={password}
           />
 
-          <TouchableOpacity
-            style={styles.btnLogin}
-            onPress={() => {
-              loginUser(email, password);
-              navigation.navigate('Home');
-            }}>
+          <TouchableOpacity style={styles.loginButton} onPress={login}>
             <Text style={styles.loginButtonText}>LOGIN</Text>
           </TouchableOpacity>
 
@@ -95,10 +90,10 @@ const Login = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  bg:{
+  bg: {
     position: 'absolute',
-    top:-40,
-    left:-30,
+    top: -40,
+    left: -30,
   },
   container: {
     flex: 1,
@@ -144,7 +139,7 @@ const styles = StyleSheet.create({
     width: '100%',
     color: 'black',
   },
-  btnLogin: {
+  loginButton: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
