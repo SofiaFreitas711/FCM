@@ -16,16 +16,15 @@ import axios from 'axios';
 const Artist = ({navigation, route}) => {
   const [sliderId, setSliderId] = useState(0)
   const [fav, setFav] = useState(false)
-  
   const [artist, setArtist] = useState(null)
   const [artistInfo, setArtistInfo] = useState(null)
   const [art, setArt] = useState(null)
 
-  async function getArtist(){
-    const response = await axios.get(`https://surrealismoapi.onrender.com/artists/${artist}`)
+  async function getArtist(artistId){
+    const response = await axios.get(`https://surrealismoapi.onrender.com/artists/${artistId}`)
     if(response.status == 200){
-      setArtistInfo(response.data)
-      console.log(response.data)
+      setArtistInfo(response.data.artist)
+      console.log(response.data.artist)
      }
   }
 
@@ -33,7 +32,6 @@ const Artist = ({navigation, route}) => {
     const response = await axios.get('https://surrealismoapi.onrender.com/arts')
     if(response.status == 200){
       setArt(response.data.arts)
-      console.log(response.data.arts)
      }
   }
 
@@ -52,9 +50,9 @@ const Artist = ({navigation, route}) => {
 
   useEffect(()=>{
     setArtist(route.params.artist)
-    getArtist()
+    getArtist(route.params.artist)
     getArt()
-  })
+  },[])
 
   return (
     <View style={styles.titleContainer}>
@@ -141,7 +139,8 @@ const styles = StyleSheet.create({
   swiper:{
     position: 'absolute',
     top: 500,
-    marginHorizontal:20
+    width: 400,
+    marginHorizontal:10
   },
   icon:{
     position: 'absolute',

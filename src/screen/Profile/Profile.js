@@ -10,14 +10,28 @@ import {
 } from 'react-native';
 import { SvgUri } from 'react-native-svg';
 import Swiper from 'react-native-swiper';
-// import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import { Icon } from '@rneui/themed';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import api from "../../api/index.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Profile2 = ({navigation}) => {
-  const user = {'nome': 'César Marques', 'idade': 12, 'localidade': 'Portimão'}
-  const favoritos = [{'obras':'https://osithual.sirv.com/Images/cabra-recem-nascida-no-curral-retrato-de-cabra-bebe_491799-5872.jpg','artistas':['artista1', 'artista2'], 'noticias':['noticias1', 'noticias2']}]
+const Profile = ({navigation}) => {
 
   const [sliderId, setSliderId] = useState(0)
+  const [loggedUser, setLoggedUser] = useState(null)
+
+  async function getUser() {
+    const id = await AsyncStorage.getItem("userID");
+    const response = await api.get(`/users/${id}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${await AsyncStorage.getItem('token')}`
+      }
+    })
+    if (response.status == 200) {
+      //console.log(response.data)
+      setLoggedUser(response.data.user);
+    }
+  }
 
   function swipeIndex(id){
     setSliderId(id)
@@ -26,44 +40,56 @@ const Profile2 = ({navigation}) => {
   function edit(){
     Alert.alert('Estou aqui')
   }
+
+  useEffect(()=>{
+    getUser()
+  })
+
   return (
     <View style={styles.container}>
-        <SvgUri height='100%' width='100%' uri="https://osithual.sirv.com/Images/FCM/Group%2034.svg" style={styles.bg}/>
+        {
+            loggedUser &&
+            <View style={styles.container}>
+                <SvgUri height='100%' width='100%' uri="https://osithual.sirv.com/Images/FCM/Group%2034.svg" style={styles.bg}/>
 
-        {/* detalhes do utilizador */}
-        <View style={styles.userInfo}>
-            <Image source={{uri: 'https://www.nokidhungry.org/sites/default/files/styles/square_2x/public/2019-02/Cause%20Marketing%20and%20Licensing.png?h=0bf1863b&itok=rU0QF0nG'}} style={styles.userInfo.image}></Image>
-            <Pressable style={styles.userInfo.text} onPress={edit}>
-                <Text style={styles.nome}>{user.nome}  <Icon name='form' /></Text>
-                <Text style={styles.details}>{user.idade} anos,</Text>
-                <Text style={styles.details}>{user.localidade}</Text>
-            </Pressable>
-        </View>
-        {/* Favoritos */}
-        <View style={styles.tab}>
-            <Text style={[sliderId == 0 ? styles.tabActive : styles.tabNotActive]}>Obras</Text>
-            <Text style={[sliderId == 1 ? styles.tabActive : styles.tabNotActive]}>Artistas</Text>
-            <Text style={[sliderId == 2 ? styles.tabActive : styles.tabNotActive]}>Notícias</Text>
-
-        </View>
-        <Swiper index={0} style={styles.swiper} loop={false} showsPagination={false} onIndexChanged={(idx) => swipeIndex(idx)}>
-            {
-            favoritos.map((item)=>{
-                return(
-                <View style={styles.swiper}>
-                    <Image  style={styles.image} source={{uri:item.obras}}></Image>
+                {/* detalhes do utilizador */}
+                <View style={styles.userInfo}>
+                    <Image source={{uri: 'https://www.nokidhungry.org/sites/default/files/styles/square_2x/public/2019-02/Cause%20Marketing%20and%20Licensing.png?h=0bf1863b&itok=rU0QF0nG'}} style={styles.userInfo.image}></Image>
+                    <Pressable style={styles.userInfo.text} onPress={() => navigation.navigate('EditProfile', {user: loggedUser})}>
+                        <Text style={styles.nome}>{loggedUser.name} <Icon name="account-edit" size={40} color="#333333" style={[styles.icon]}></Icon></Text>
+                        <Text style={styles.details}>{loggedUser.locality}</Text>
+                    </Pressable>
                 </View>
-                )
-            })
-            }
-            <View>
-                <Text>Artistas</Text>
+
+                {/* Favoritos */}
+                <View style={styles.tab}>
+                    <Text style={[sliderId == 0 ? styles.tabActive : styles.tabNotActive]}>Obras</Text>
+                    <Text style={[sliderId == 1 ? styles.tabActive : styles.tabNotActive]}>Artistas</Text>
+                    <Text style={[sliderId == 2 ? styles.tabActive : styles.tabNotActive]}>Notícias</Text>
+
+                </View>
+                <Swiper index={0} style={styles.swiper} loop={false} showsPagination={false} onIndexChanged={(idx) => swipeIndex(idx)}>
+                    {
+                    loggedUser.favorites.map((item)=>{
+                        return(
+                        <View style={styles.swiper}>
+                            <Image  style={styles.image} source={{uri:item.obras}}></Image>
+                        </View>
+                        )
+                    })
+                    }
+                    <View>
+                        <Text>Artistas</Text>
+                    </View>
+                    <View>
+                        <Text>Noticias</Text>
+                    </View>
+                </Swiper>
+                <View></View>
+
             </View>
-            <View>
-                <Text>Noticias</Text>
-            </View>
-        </Swiper>
-        <View></View>
+        }
+        
             
            
     </View>
@@ -135,4 +161,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Profile2;
+export default Profile;

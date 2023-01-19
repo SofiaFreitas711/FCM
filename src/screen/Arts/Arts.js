@@ -25,6 +25,7 @@ const Arts = ({navigation}) => {
     const response = await axios.get('https://surrealismoapi.onrender.com/artists');
    if(response.status == 200){
     setArtists(response.data.artist)
+    console.log(response.data)
    }
   }
   
@@ -63,62 +64,63 @@ const Arts = ({navigation}) => {
     getArtists()
     getArts()
     getTecniques()
-  })
+    console.log('tou aqui')
+  },[])
 
   return (
     <View style={styles.titleContainer}>
       {artists && arts &&
-      <View style={styles.titleContainer}>
-      <SvgUri uri="https://osithual.sirv.com/Images/FCM/fundo.svg" style={styles.bg}/>
-      <Text style={styles.title}>Surrealismo</Text>
-    
-      <View style={styles.tabs}>
-        {ListTab.map((tab, index) => (
-          <Pressable key={index} style={styles.tab} onPress={() => setStatusFilter(tab.status)}>
-            <Text style={[styles.tabText, status === tab.status && styles.textTabActive]}>{tab.status}</Text>
-          </Pressable>
-        ))}
-      </View>
-      {status == 'Obras' &&
-        <ScrollView style={styles.swiper}>
-          {
-            artists.map((artist, index)=>(
-              <ScrollView>
-                <Text style={styles.artistName}>{artist.name}</Text>
-                <Text style={styles.artistDates}>{artist.born}-{artist.death}</Text>
-                <ScrollView horizontal={true}>
-                  {arts.filter(art => art.artist == artist._id).map(filteredArt =>(
-                    <Pressable onPress={() => navigation.navigate('Art', {art: filteredArt})}><Image source={{uri:filteredArt.image}} style={styles.image}></Image></Pressable>
-                    
-                  ))}
-                </ScrollView>
-              </ScrollView>
-              
-            ))
-          }
-        </ScrollView>
-      }
-      {
-        status == 'Técnicas' && 
+        <View style={styles.titleContainer}>
+        <SvgUri uri="https://osithual.sirv.com/Images/FCM/fundo.svg" style={styles.bg}/>
+        <Text style={styles.title}>Surrealismo</Text>
       
-            <ScrollView style={styles.swiper}>
-              {
-                techniques.map((technic, index)=>(
-                  <ScrollView>
-                    <Text style={styles.artistName}>{technic.name}</Text>
-                    <ScrollView horizontal={true}>
-                      {arts.filter(art => art.technique == technic.name).map(filteredTechniques =>(
-                        <Pressable onPress={() => navigation.navigate('Art', {art: filteredTechniques})}><Image source={{uri:filteredTechniques.image}} style={styles.image}></Image></Pressable>
-                      ))}
-                    </ScrollView>
+        <View style={styles.tabs}>
+          {ListTab.map((tab, index) => (
+            <Pressable key={index} style={styles.tab} onPress={() => setStatusFilter(tab.status)}>
+              <Text style={[styles.tabText, status === tab.status && styles.textTabActive]}>{tab.status}</Text>
+            </Pressable>
+          ))}
+        </View>
+        {status == 'Obras' &&
+          <ScrollView style={styles.swiper}>
+            {
+              artists.map((artist)=>(
+                <ScrollView key={artist._id}>
+                  <Text style={styles.artistName}>{artist.name}</Text>
+                  <Text style={styles.artistDates}>{artist.born}-{artist.death}</Text>
+                  <ScrollView horizontal={true}>
+                    {arts.filter(art => art.artist == artist._id).map(filteredArt =>(
+                      <Pressable onPress={() => navigation.navigate('Art', {art: filteredArt})}><Image source={{uri:filteredArt.image}} style={styles.image}></Image></Pressable>
+                      
+                    ))}
                   </ScrollView>
-                ))
-              }
-            </ScrollView>        
-      }          
-            
-                        
-      </View>
+                </ScrollView>
+                
+              ))
+            }
+          </ScrollView>
+        }
+        {
+          status == 'Técnicas' && 
+        
+              <ScrollView style={styles.swiper}>
+                {
+                  techniques.map((technic)=>(
+                    <ScrollView key={technic._id}>
+                      <Text style={styles.artistName}>{technic.name}</Text>
+                      <ScrollView horizontal={true}>
+                        {arts.filter(art => art.technique == technic.name).map(filteredTechniques =>(
+                          <Pressable  onPress={() => navigation.navigate('Art', {art: filteredTechniques})}><Image source={{uri:filteredTechniques.image}} style={styles.image}></Image></Pressable>
+                        ))}
+                      </ScrollView>
+                    </ScrollView>
+                  ))
+                }
+              </ScrollView>        
+        }          
+              
+                          
+        </View>
       }
     </View>
     

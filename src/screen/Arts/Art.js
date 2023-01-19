@@ -11,33 +11,72 @@ import {
 import { SvgUri } from 'react-native-svg';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
+import api from "../../api/index.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Art = ({navigation, route}) => {
   const [fav, setFav] = useState(false)
   const [art, setArt] = useState(null)
   const [artist, setArtist] = useState(null)
+  const [loggedUser, setLoggedUser] = useState(null)
 
-  function favs(){
-    if(fav==false){
+  async function favs(){
+    if(fav==false && loggedUser){
+      loggedUser.favoritesArt.push(art._id)
       setFav(true)
+      await axios.patch(`https://surrealismoapi.onrender.com/users/${loggedUser._id}`,{
+        favoritesArt: favoritesArt.push(art._id),
+      },{
+        headers:{
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${await AsyncStorage.getItem('token')}`
+        }
+      })
     }else
-      setFav(false)
-   console.log(fav)
+      if(loggedUser){
+        loggedUser.favoritesArt.pop(art._id)
+        setFav(false)
+        await axios.patch(`https://surrealismoapi.onrender.com/users/${loggedUser._id}`,{
+          favoritesArt: favoritesArt.pop(art._id),
+      },{
+        headers:{
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${await AsyncStorage.getItem('token')}`
+        }
+      })
+      }
+      
+   console.log(loggedUser.favoritesArt)
   }
 
-  async function getArtist(){
-    const response = await axios.get(`https://surrealismoapi.onrender.com/artists/${art.artist}`)
+  async function getArtist(artistId){
+    const response = await axios.get(`https://surrealismoapi.onrender.com/artists/${artistId}`,)
     if(response.status == 200){
       setArtist(response.data.artist)
       console.log(response.data.artist)
      }
   }
 
+  async function getUser() {
+    const id = await AsyncStorage.getItem("userID");
+    const response = await api.get(`/users/${id}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${await AsyncStorage.getItem('token')}`
+      }
+    })
+    if (response.status == 200) {
+      //console.log(response.data)
+      setLoggedUser(response.data.user);
+    }
+  }
+
   useEffect(()=>{
     setArt(route.params.art)
-    getArtist()
-
-  })
+    getArtist(route.params.art.artist)
+    getUser()
+    //console.log(loggedUser)
+  }, [])
 
   return (
     <View style={styles.titleContainer}>
@@ -53,7 +92,7 @@ const Art = ({navigation, route}) => {
               <Icon name="cards-heart" size={40} color="#54c5d0" style={[styles.icon]}></Icon>
             }
           </Pressable>
-          <Pressable onPress={() => navigation.navigate('Artist', {artist: art.artist})}><Image style={styles.image} source={{uri:artist.image}}></Image></Pressable>
+          <Pressable style={styles.pressable} onPress={() => navigation.navigate('Artist', {artist: art.artist})}><Image style={styles.image} source={{uri:artist.image}}></Image></Pressable>
           <View style={styles.info}>
             <Text style={styles.info.autor}>{artist.name}</Text>
             <Text style={styles.info.obra}>{art.name}</Text>
@@ -111,10 +150,7 @@ const styles = StyleSheet.create({
   image:{
     width: 100,
     height: 100,
-    position: 'absolute',
     borderRadius: 50,
-    top: 440,
-    left: 65,
     backgroundColor: '#ffffff'
   },
   icon:{
@@ -131,6 +167,13 @@ const styles = StyleSheet.create({
   },
   text:{
     color: '#333333'
+  },
+  pressable: {
+    width:100,
+    height:100,
+    position: 'absolute',
+    top: 440,
+    left: 65,
   }
 });
 
