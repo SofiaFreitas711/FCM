@@ -1,9 +1,10 @@
 import React from 'react'
 import { StyleSheet, Image } from 'react-native'
 
+import { useState, useEffect } from 'react';
+
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useState, useEffect } from 'react';
 
 /* Import screens */
 
@@ -52,7 +53,9 @@ const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigation() {
   return (
-    <Drawer.Navigator initialRouteName="Login" drawerContent={props => <Menu {...props} />} screenOptions={{
+    <Drawer.Navigator 
+    drawerContent={props => <Menu {...props} />} 
+    screenOptions={{
       headerTitle: "",
       headerTitleStyle: { color: '#fff' },
       headerStyle: {
@@ -63,15 +66,16 @@ export default function DrawerNavigation() {
       drawerActiveTintColor: '#2E3192',
       drawerInactiveTintColor: 'black',
       drawerLabelStyle: {
-        marginLeft: -16, 
+        marginLeft: -16,
       },
       drawerStyle: {
         width: screenWidth,
       }
     }}>
+
       <Drawer.Screen name="Página Inicial" component={Home} options={{
         drawerIcon: () => (
-          <SvgUri width="40" height="40" uri="https://atuousti.sirv.com/FCM/Home.svg"  />
+          <SvgUri width="40" height="40" uri="https://atuousti.sirv.com/FCM/Home.svg" />
         ),
 
       }} />
@@ -102,70 +106,47 @@ export default function DrawerNavigation() {
         ),
       }} />
     </Drawer.Navigator>
+
   );
 }
 
 
 export function Router() {
-  const [firstLaunch, setFirstLaunch] = useState(null);
-
-  React.useEffect(() => {
-    async function setData() {
-      const appData = await AsyncStorage.getItem("appLaunched");
-      if (appData == null) {
-        setFirstLaunch(true);
-        AsyncStorage.setItem("appLaunched", "false");
-      } else {
-        setFirstLaunch(false);
-      }
-    }
-    setData();
-  }, []);
-
   return (
-    firstLaunch != null && (
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Login'>
-        
-        {/* <Stack.Screen name="LoginToken" component={LoginToken} /> */}
-        <Stack.Screen name="Drawer" component={DrawerNavigation} />
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Home'>
+      <Stack.Screen name="Drawer" component={DrawerNavigation} />
+      <Stack.Screen name="Onboarding" component={Onboarding} />
 
-        {firstLaunch && (
-          <Stack.Screen
-            name="Onboarding"
-            component={Onboarding}
-          />
-          )}
+      <Stack.Screen name="Login" component={Login} />
 
-        <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Home" component={Home} />
 
-        <Stack.Screen name="HomePage" component={Home} />
 
-        <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="Registo" component={Register} />
 
-        <Stack.Screen name="Arts" component={Arts} />
-        <Stack.Screen name="Art" component={Art} />
-        <Stack.Screen name="Artist" component={Artist} />
+      <Stack.Screen name="Obras" component={Arts} />
+      <Stack.Screen name="Obra" component={Art} />
+      <Stack.Screen name="Artista" component={Artist} />
 
-        <Stack.Screen name="Present" component={Present} />
-        <Stack.Screen name="Events" component={Events} />
-        <Stack.Screen name="Event" component={Event} />
-        <Stack.Screen name="News" component={News} />
-        <Stack.Screen name="New" component={New} />
+      <Stack.Screen name="Atualidade" component={Present} />
+      <Stack.Screen name="Eventos" component={Events} />
+      <Stack.Screen name="Evento" component={Event} />
+      <Stack.Screen name="Notícias" component={News} />
+      <Stack.Screen name="Notícia" component={New} />
 
-        <Stack.Screen name="Games" component={Games} />
-        <Stack.Screen name="Game" component={Game} />
-        <Stack.Screen name="Leaderboard" component={Leaderboard} />
+      <Stack.Screen name="Jogos" component={Games} />
+      <Stack.Screen name="Jogo" component={Game} />
+      <Stack.Screen name="Leaderboard" component={Leaderboard} />
 
-        <Stack.Screen name="Editar perfil" component={EditProfile} />
-        <Stack.Screen name="Perfil" component={Profile} />
+      <Stack.Screen name="Editar perfil" component={EditProfile} />
+      <Stack.Screen name="Perfil" component={Profile} />
 
-        <Stack.Screen name="Store" component={Store} />
+      <Stack.Screen name="Loja" component={Store} />
 
-        <Stack.Screen name="Error" component={Error} />
+      <Stack.Screen name="Error" component={Error} />
 
-        <Stack.Screen name="AboutUs" component={AboutUs} />
+      <Stack.Screen name="AboutUs" component={AboutUs} />
 
-      </Stack.Navigator>
-    )
+    </Stack.Navigator>
   )
 }
