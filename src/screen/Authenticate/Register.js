@@ -5,11 +5,15 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Button,
+Pressable,
+  Image,
+  ScrollView,
 } from 'react-native';
 import api from "../../api/index.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DatePicker from 'react-native-date-picker';
+
+import { SvgUri } from 'react-native-svg';
 
 const Register = ({ navigation }) => {
   const [name, setName] = useState('');
@@ -78,9 +82,13 @@ const Register = ({ navigation }) => {
   }
 
   return (
+    <ScrollView>
     <View style={styles.container}>
-      {/* Logo */}
-      <Text style={styles.welcome}>Cria uma conta!</Text>
+    <SvgUri uri="https://atuousti.sirv.com/FCM/BgAuth.svg" style={styles.bg} />
+      <View style={styles.containerLogo}>
+          <SvgUri uri="https://atuousti.sirv.com/FCM/logo.svg" width={315} height={190} />
+          <Text style={styles.welcome}>Cria uma conta!</Text>
+        </View>
       <View style={styles.form}>
         <TextInput
           style={styles.textInput}
@@ -118,7 +126,9 @@ const Register = ({ navigation }) => {
           onChangeText={setBirthDate}
           value={birthDate}
         /> */}
-        <Button title="Open" onPress={() => setOpen(true)} />
+        <Pressable title="Open" onPress={() => setOpen(true)} style={styles.date}>
+          <Text style={{marginBottom: 5}}>Data de nascimento</Text>
+          </Pressable>
         <DatePicker
           modal
           mode="date"
@@ -145,25 +155,49 @@ const Register = ({ navigation }) => {
         <Text style={styles.errorMessage}>{errorMessage}</Text>
       </View>
     </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
+  bg: {
+    position: 'absolute',
+    top: -40,
+    left: -30,
+    height: 1500,
+  },
+
   container: {
     flex: 1,
     margin: 20,
     alignItems: "center",
   },
+  containerLogo: {
+    flex: 1,
+    justifyContent: 'center',
+    marginTop: 0,
+  },
+
   welcome: {
-    color: "black",
-    fontSize: 20
+    textAlign: 'center',
+    fontFamily: 'Barlow',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: 18,
+    lineHeight: 22,
+    marginTop: -40,
+
   },
   form: {
-    width: "90%",
-    marginVertical: 10,
-    alignItems: "center",
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '98%',
+    marginBottom: 10,
+    marginTop: 20,
   },
   textInput: {
+    backgroundColor: 'transparent',
     marginVertical: 30,
     marginLeft: 12,
     borderBottomWidth: 1,
@@ -173,19 +207,34 @@ const styles = StyleSheet.create({
     width: "100%",
     color: "black",
   },
+  date: {
+    backgroundColor: 'transparent',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(0, 0, 0, 0.45)',
+    paddingHorizontal: 5,
+    paddingVertical: -5,
+    width: "100%",
+    marginVertical: 20,
+    marginLeft: 12,
+
+  },
   registerButton: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     marginBottom: 30,
+    marginTop: 20,
     backgroundColor: "#2E3192",
     width: "90%",
     height: 55,
-    alignItems: "center",
     justifyContent: 'center',
     borderRadius: 15,
   },
   registerButtonText: {
-    color: "white",
-    fontSize: 15,
-    fontWeight: "bold",
+    color: '#fff',
+    fontSize: 18,
+    letterSpacing: -0.41
+
   },
   errorMessage: {
     fontSize: 12,
