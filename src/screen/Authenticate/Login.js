@@ -33,7 +33,7 @@ const Login = ({ navigation }) => {
         await AsyncStorage.setItem('token', response.data.accessToken);
         await AsyncStorage.setItem('userID', response.data.id);
         await AsyncStorage.setItem('type', response.data.type);
-        navigation.navigate('Home');
+        navigation.navigate('HomePage');
       })
       .catch(function (error) {
         console.log(error.response.data);

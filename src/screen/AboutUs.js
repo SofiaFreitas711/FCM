@@ -4,9 +4,11 @@ import {
   Text,
   View,
   ScrollView,
+  Pressable,
 } from 'react-native';
 
 import { SvgUri } from 'react-native-svg';
+import IconMenu from 'react-native-vector-icons/Feather'
 
 const AboutUs = ({ navigation }) => {
   return (
@@ -14,6 +16,9 @@ const AboutUs = ({ navigation }) => {
       <SvgUri uri="https://osithual.sirv.com/Surrealismo/fundo.svg"
         style={styles.background}
       />
+      <Pressable onPress={() => navigation.navigate('Menu')}>
+        <IconMenu name="menu" color="#000" size={25} style={{margin: 15}}/>
+      </Pressable>
 
     <ScrollView showsVerticalScrollIndicator={false}>
 
