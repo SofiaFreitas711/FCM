@@ -21,7 +21,7 @@ const Menu = (props) => {
       <ImageBackground source={require('../assets/BackGround/Menu.png')} style={{ width: '100%', height: '100%'}}>
         <DrawerContentScrollView {...props}>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', borderBottomColor: 'rgba(164, 164, 164, 1)', borderBottomWidth: 1, marginHorizontal: 10 , marginVertical:10}}>
-            <Image
+              <Image
               source={{uri: 'https://atuousti.sirv.com/FCM/Rene-Magritte-The-Art-of-living.JPG'}}
               style={styles.profilePic} />
             <Text style={styles.nameUser}>Joaquim</Text>

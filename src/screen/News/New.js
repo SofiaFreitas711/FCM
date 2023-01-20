@@ -20,10 +20,10 @@ const New = ({ navigation, route }) => {
         />
       </View>
       <View style={{alignItems: 'center'}}>
-      <Image
+      {/* <Image
         source={require("../../assets/News/NewsSpecific.png")}
         style={styles.vector}
-      />
+      /> */}
       </View>
       <View style={styles.titleContainer}>
         <Text style={styles.description}>{item.type}</Text>
