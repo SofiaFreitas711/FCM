@@ -130,7 +130,7 @@ const Artist = ({navigation, route}) => {
           </View>
 
           <Swiper index={0} style={styles.swiper} loop={false} showsPagination={false} onIndexChanged={(idx) => swipeIndex(idx)}>
-            <ScrollView><Text>{artistInfo.info}</Text></ScrollView>
+            <ScrollView><Text style={{color:'#333333'}}>{artistInfo.info}</Text></ScrollView>
 
             {/* <ScrollView>
                 {art.filter(art => art.artist == artistInfo._id).map(filteredArt =>(

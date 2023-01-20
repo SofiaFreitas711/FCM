@@ -57,8 +57,8 @@ const Profile = ({navigation}) => {
                 <View style={styles.userInfo}>
                     <Image source={{uri: loggedUser.image}} style={styles.userInfo.image}></Image>
                     <Pressable style={styles.userInfo.text} onPress={() => navigation.navigate('EditProfile', {user: loggedUser._id})}>
-                        <Text style={styles.nome}>{loggedUser.name} <Icon name="account-edit" size={40} color="#333333" style={[styles.icon]}></Icon></Text>
-                        <Text style={styles.details}>{loggedUser.locality}</Text>
+                        <Text style={{color:'#333333'}}>{loggedUser.name} <Icon name="account-edit" size={40} color="#333333" style={[styles.icon]}></Icon></Text>
+                        <Text style={{color: '#333333'}} >{loggedUser.locality}</Text>
                     </Pressable>
                 </View>
 
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
             flexDirection:'column',
             color: '#333333',
             marginLeft: 40,
-            marginTop: 120,
+            marginTop: 90,
         },
         
     },

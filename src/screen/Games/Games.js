@@ -62,7 +62,7 @@ const Games = ({ navigation }) => {
 
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.container}>
-      <SvgUri uri="https://osithual.sirv.com/Surrealismo/fundo.svg" style={styles.bg} />
+      <SvgUri uri="https://osithual.sirv.com/Images/FCM/fundo.svg" style={styles.bg} />
       <Pressable onPress={() => navigation.navigate('Menu')}>
         <IconMenu name="menu" color="#000" size={25}/>
       </Pressable>
