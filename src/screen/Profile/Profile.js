@@ -28,7 +28,6 @@ const Profile = ({navigation}) => {
       }
     })
     if (response.status == 200) {
-      //console.log(response.data)
       setLoggedUser(response.data.user);
     }
   }
