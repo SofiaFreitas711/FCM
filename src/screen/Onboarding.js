@@ -5,10 +5,14 @@ import {
   View,
 } from 'react-native';
 
+import OnboardingComp from '../components/Onboarding/OnboardingComp';
+
 const Onboarding = ({navigation}) => {
   return (
-    <View style={styles.titleContainer}>
-      <Text style={styles.title}>Onboarding</Text>
+    <View style={styles.container}>
+      <View>
+        <OnboardingComp />
+      </View>
     </View>
   )
 }

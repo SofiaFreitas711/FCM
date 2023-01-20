@@ -60,7 +60,7 @@ const FeaturedNews = () => {
         viewabilityConfig={viewableConfig}
         />
         </View>
-        <Pagination data={list} scrollX= {scrollX} index={activeIndex}/>
+        <Pagination data={listCenas} scrollX= {scrollX} index={activeIndex}/>
     </View>
     
   )
