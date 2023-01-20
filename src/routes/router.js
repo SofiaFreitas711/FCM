@@ -26,7 +26,7 @@ import New from '../screen/News/New'
 
 import Games from '../screen/Games/Games'
 import Game from '../screen/Games/Game'
-import Leaderboard from '../screen/Games/Leaderbord'
+import Leaderboard from '../screen/Games/Leaderboard'
 
 import Store from '../screen/Store'
 
