@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Image,
   StyleSheet,
@@ -14,24 +14,52 @@ import {
 import { SvgUri } from 'react-native-svg';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { BlurView } from 'expo-blur'
+import api from "../../api/index.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const EditProfile = ({navigation}) => {
-  const user = {'nome': 'César Marques', 'idade': 12, 'localidade': 'Portimão', 'password': '1234', 'active': 'true'}
-
-  const [username, setUsername] = useState('')
+const EditProfile = ({navigation, route}) => {
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [cPassword, setCPassword] = useState('')
   const [modalVisible, setModalVisible] = useState(false);
+  const [loggedUser, setLoggedUser] = useState(null)
 
-  function saveChanges() {
-    
-    if (username && (password == cPassword)){
-      user.nome = username
-      user.password = password
-      Alert.alert(username, password)
+  async function getUser() {
+    const id = await AsyncStorage.getItem("userID");
+    const response = await api.get(`/users/${id}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${await AsyncStorage.getItem('token')}`
+      }
+    })
+    if (response.status == 200) {
+      setLoggedUser(response.data.user);
+      setEmail(response.data.user.email);
+      setPassword(response.data.user.password);
     }
-    
   }
+
+  async function changeUser() {
+        await axios.patch(`https://surrealismoapi.onrender.com/users/${loggedUser._id}`,{
+          email:email
+        },{
+        headers:{
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${await AsyncStorage.getItem('token')}`
+        }
+      })
+      setLoggedUser((prevState)=>{
+        return{
+          ...prevState,
+          email: email,
+          password: password
+          
+        }
+      })
+  }
+
+  useEffect(()=>{
+    getUser()
+  }, [])
 
   function disableUser(){
     user.active = 'false'
@@ -44,29 +72,25 @@ const EditProfile = ({navigation}) => {
 
   return (
     <View style={styles.titleContainer}>
+      {loggedUser &&
+      <View style={styles.titleContainer}>
       <SvgUri resizeMode="contain" height='120%' width='100%' uri="https://osithual.sirv.com/Images/FCM/Group%2036.svg" style={styles.bg}/>
       <Pressable onPress={() => setModalVisible(true)} style={styles.buttonDisable}><Text style={styles.buttonDisable.text}>Eliminar Conta</Text></Pressable>
-      <Text style={styles.nome}>Olá {user.nome}</Text>
+      <Text style={styles.nome}>Olá {loggedUser.name}</Text>
       <KeyboardAwareScrollView style={styles.form}>
         <TextInput 
-        placeholder='Username'
-        onChangeText={setUsername}
-        value={username}></TextInput>
+        placeholder='Email'
+        onChangeText={setEmail}
+        value={email}></TextInput>
 
         <TextInput 
         placeholder='Password'
         secureTextEntry 
         onChangeText={setPassword}
         value={password}></TextInput>
-
-        <TextInput
-        placeholder='Confirmação da password'
-        secureTextEntry
-        onChangeText={setCPassword}
-        value={cPassword}></TextInput>
       </KeyboardAwareScrollView>
       
-      <Pressable onPress={saveChanges} style={styles.buttonConfirm}><Text style={styles.buttonConfirm.text}>Guardar Alterações</Text></Pressable>
+      <Pressable onPress={()=>changeUser} style={styles.buttonConfirm}><Text style={styles.buttonConfirm.text}>Guardar Alterações</Text></Pressable>
 
       <Modal
         animationType="slide"
@@ -87,7 +111,8 @@ const EditProfile = ({navigation}) => {
               </View>
           </BlurView>
       </Modal>
-      
+      </View>
+      }
     </View>
   )
 }

@@ -28,6 +28,7 @@ const Profile = ({navigation}) => {
       }
     })
     if (response.status == 200) {
+      //console.log(response.data)
       setLoggedUser(response.data.user);
     }
   }
@@ -50,7 +51,7 @@ const Profile = ({navigation}) => {
                 {/* detalhes do utilizador */}
                 <View style={styles.userInfo}>
                     <Image source={{uri: loggedUser.image}} style={styles.userInfo.image}></Image>
-                    <Pressable style={styles.userInfo.text} onPress={() => navigation.navigate('EditProfile', {user: loggedUser})}>
+                    <Pressable style={styles.userInfo.text} onPress={() => navigation.navigate('EditProfile', {user: loggedUser._id})}>
                         <Text style={styles.nome}>{loggedUser.name} <Icon name="account-edit" size={40} color="#333333" style={[styles.icon]}></Icon></Text>
                         <Text style={styles.details}>{loggedUser.locality}</Text>
                     </Pressable>
