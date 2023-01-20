@@ -10,7 +10,7 @@ import {
 import {List} from 'react-native-paper'
 import axios from 'axios';
 import { SvgUri } from 'react-native-svg';
-
+import IconMenu from 'react-native-vector-icons/Feather'
 
 const Store = ({navigation}) => {
   // const [loggedUser, setLoggedUser] = useState(null)
@@ -61,34 +61,38 @@ const Store = ({navigation}) => {
   
   return (
     <View style={styles.titleContainer}>
+      <Pressable onPress={() => navigation.navigate('Menu')} style={{zIndex: 1, alignItems: "flex-start"}}>
+            <IconMenu name="menu" color="#000" size={25} style={{margin: 15}}/>
+      </Pressable>
       {offers &&
         <View style={styles.titleContainer}>
-          <SvgUri uri="https://osithual.sirv.com/Images/FCM/fundo.svg" style={styles.bg}/>
-          <Text style={styles.title}>Loja</Text>
-          
-          <ScrollView>
-            {
-              offers.map((item, index) => (
-                  <List.Accordion
-                    title={item.name}
-                    expanded={expanded}
-                    onPress={handlePress}
-                    titleStyle={{ color:'white' }}
-                    style={points >= item.amountPoints? styles.container: styles.containerOff}>
-                    <List.Item title={item.info} titleStyle={{ color:'white', width: 300, fontSize: 10 }} style={points >= item.amountPoints? styles.details: styles.detailsOff}/>               
-                    <List.Item title={`Custo:${item.amountPoints}`} titleStyle={{ color:'white' }} style={points >= item.amountPoints? styles.cost: styles.costOff}></List.Item>
-                    {item.trade == false &&
-                      <Pressable style={styles.teste} onPress={()=> exchange(item.amountPoints)}><Text style={styles.teste.text}>Trocar</Text></Pressable>
-                    }
-                    {item.trade == true &&
-                      <Pressable style={styles.teste}><Text style={styles.teste.textTrade}>Troca efetuada</Text></Pressable>
-                    }
-                    
-                  </List.Accordion>
-              ))
-            }
+          <SvgUri uri="https://osithual.sirv.com/Images/FCM/fundo.svg" style={styles.bg}/>    
+          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={styles.title}>Loja</Text>
+            <ScrollView>
+              {
+                offers.map((item, index) => (
+                    <List.Accordion
+                      title={item.name}
+                      expanded={expanded}
+                      onPress={handlePress}
+                      titleStyle={{ color:'white' }}
+                      style={points >= item.amountPoints? styles.container: styles.containerOff}>
+                      <List.Item title={item.info} titleStyle={{ color:'white', width: 300, fontSize: 10 }} style={points >= item.amountPoints? styles.details: styles.detailsOff}/>
+                      <List.Item title={`Custo:${item.amountPoints}`} titleStyle={{ color:'white' }} style={points >= item.amountPoints? styles.cost: styles.costOff}></List.Item>
+                      {item.trade == false &&
+                        <Pressable style={styles.teste} onPress={()=> exchange(item.amountPoints)}><Text style={styles.teste.text}>Trocar</Text></Pressable>
+                      }
+                      {item.trade == true &&
+                        <Pressable style={styles.teste}><Text style={styles.teste.textTrade}>Troca efetuada</Text></Pressable>
+                      }
             
-          </ScrollView>
+                    </List.Accordion>
+                ))
+              }
+            
+            </ScrollView>
+          </View>
         </View>
       }
     </View>
@@ -103,8 +107,6 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   title: {
     fontSize: 24,

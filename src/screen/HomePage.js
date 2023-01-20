@@ -15,6 +15,8 @@ import api from "./../api/index.js";
 import ArtOfTheDay from '../components/ArtOfTheDay.js';
 import NewsItem from '../components/News/NewsItem.js';
 import EventsItem from '../components/News/EventsItem.js';
+import IconMenu from 'react-native-vector-icons/Feather'
+
 
 list = [
   {
@@ -56,6 +58,9 @@ const HomePage = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SvgUri uri="https://osithual.sirv.com/Images/FCM/fundo.svg" style={styles.bg}/>
+      <Pressable onPress={() => navigation.navigate('Menu')}>
+        <IconMenu name="menu" color="#000" size={25} style={{margin: 15}}/>
+      </Pressable>
       <ScrollView>
         <View>
         <FlatList
