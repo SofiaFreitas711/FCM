@@ -13,7 +13,7 @@ import IconMenu from 'react-native-vector-icons/Feather'
 const AboutUs = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <SvgUri uri="https://osithual.sirv.com/Surrealismo/fundo.svg"
+      <SvgUri uri="https://osithual.sirv.com/Images/FCM/fundo.svg"
         style={styles.background}
       />
       <Pressable onPress={() => navigation.navigate('Menu')}>

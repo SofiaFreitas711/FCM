@@ -126,19 +126,19 @@ const Artist = ({navigation, route}) => {
           </Pressable>
           <View style={styles.tab}>
                 <Text style={[sliderId == 0 ? styles.tabActive : styles.tabNotActive]}>Biografia</Text>
-                <Text style={[sliderId == 1 ? styles.tabActive : styles.tabNotActive]}>Obras</Text>
+                {/* <Text style={[sliderId == 1 ? styles.tabActive : styles.tabNotActive]}>Obras</Text> */}
           </View>
 
           <Swiper index={0} style={styles.swiper} loop={false} showsPagination={false} onIndexChanged={(idx) => swipeIndex(idx)}>
             <ScrollView><Text>{artistInfo.info}</Text></ScrollView>
 
-            <ScrollView>
+            {/* <ScrollView>
                 {art.filter(art => art.artist == artistInfo._id).map(filteredArt =>(
                     <Image source={{uri:filteredArt.image}} style={styles.image}></Image>
                     
                   ))
                 }
-            </ScrollView>
+            </ScrollView> */}
           </Swiper>
         </View>
 

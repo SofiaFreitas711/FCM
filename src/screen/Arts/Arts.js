@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
     color: 'black',
-    top: 100,
+    top: 30,
     left: 30
   },
   bg: {

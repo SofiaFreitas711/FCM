@@ -74,7 +74,7 @@ const Profile = ({navigation}) => {
                     loggedUser.favoritesArt.map((item)=>{
                         return(
                         <View style={styles.swiper}>
-                            <Image  style={styles.image} source={{uri:item.obras}}></Image>
+                            <Text>Esta feature não está pronta para ti</Text>
                         </View>
                         )
                     })
@@ -84,7 +84,7 @@ const Profile = ({navigation}) => {
                         loggedUser.favoritesArtist.map((item)=>{
                             return(
                             <View style={styles.swiper}>
-                                <Image  style={styles.image} source={{uri:item.obras}}></Image>
+                                <Text>Esta feature não está pronta para ti</Text>
                             </View>
                             )
                         })
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
             height:100,
             borderRadius:50,
             marginLeft: 60,
-            marginTop: 70
+            marginTop: 30
         },
         text:{
             flexDirection:'column',
