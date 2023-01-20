@@ -14,11 +14,65 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
 
 const Artist = ({navigation, route}) => {
+
   const [sliderId, setSliderId] = useState(0)
   const [fav, setFav] = useState(false)
   const [artist, setArtist] = useState(null)
   const [artistInfo, setArtistInfo] = useState(null)
   const [art, setArt] = useState(null)
+  const [loggedUser, setLoggedUser] = useState(null)
+
+  async function getUser() {
+    const id = await AsyncStorage.getItem("userID");
+    const response = await api.get(`/users/${id}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${await AsyncStorage.getItem('token')}`
+      }
+    })
+    if (response.status == 200) {
+      setLoggedUser(response.data.user);
+    }
+  }
+
+  async function favs(){
+    let favs = loggedUser.favoritesArtist;
+    if(favs.find(favourite => favourite == artist._id)){
+      favs.pop(artist._id)
+      console.log(favs);
+      setLoggedUser((prevState)=>{
+        return{
+          ...prevState,
+          favoritesArtist: favs
+        }
+
+      })
+      setFav(false)
+      await axios.patch(`https://surrealismoapi.onrender.com/users/${loggedUser._id}`,loggedUser,{
+        headers:{
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${await AsyncStorage.getItem('token')}`
+        }
+      })
+    }else
+      if(loggedUser){
+        favs = loggedUser.favoritesArtist.push(artist._id)
+        setFav(true)
+        setLoggedUser((prevState)=>{
+          return{
+            ...prevState,
+            favoritesArtist: favs
+          }
+  
+        })
+        await axios.patch(`https://surrealismoapi.onrender.com/users/${loggedUser._id}`,loggedUser,{
+        headers:{
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${await AsyncStorage.getItem('token')}`
+        }
+      })
+      }
+  }
 
   async function getArtist(artistId){
     const response = await axios.get(`https://surrealismoapi.onrender.com/artists/${artistId}`)
@@ -51,7 +105,8 @@ const Artist = ({navigation, route}) => {
   useEffect(()=>{
     setArtist(route.params.artist)
     getArtist(route.params.artist)
-    getArt()
+    getArt(),
+    getUser()
   },[])
 
   return (
@@ -76,9 +131,10 @@ const Artist = ({navigation, route}) => {
 
           <Swiper index={0} style={styles.swiper} loop={false} showsPagination={false} onIndexChanged={(idx) => swipeIndex(idx)}>
             <ScrollView><Text>{artistInfo.info}</Text></ScrollView>
+
             <ScrollView>
                 {art.filter(art => art.artist == artistInfo._id).map(filteredArt =>(
-                    <Pressable onPress={() => navigation.navigate('Art', {art: filteredArt})}><Image source={{uri:filteredArt.image}} style={styles.image}></Image></Pressable>
+                    <Image source={{uri:filteredArt.image}} style={styles.image}></Image>
                     
                   ))
                 }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Image,
   StyleSheet,
@@ -37,10 +37,6 @@ const Profile = ({navigation}) => {
     setSliderId(id)
   }
 
-  function edit(){
-    Alert.alert('Estou aqui')
-  }
-
   useEffect(()=>{
     getUser()
   })
@@ -54,7 +50,7 @@ const Profile = ({navigation}) => {
 
                 {/* detalhes do utilizador */}
                 <View style={styles.userInfo}>
-                    <Image source={{uri: 'https://www.nokidhungry.org/sites/default/files/styles/square_2x/public/2019-02/Cause%20Marketing%20and%20Licensing.png?h=0bf1863b&itok=rU0QF0nG'}} style={styles.userInfo.image}></Image>
+                    <Image source={{uri: loggedUser.image}} style={styles.userInfo.image}></Image>
                     <Pressable style={styles.userInfo.text} onPress={() => navigation.navigate('EditProfile', {user: loggedUser})}>
                         <Text style={styles.nome}>{loggedUser.name} <Icon name="account-edit" size={40} color="#333333" style={[styles.icon]}></Icon></Text>
                         <Text style={styles.details}>{loggedUser.locality}</Text>
@@ -70,7 +66,7 @@ const Profile = ({navigation}) => {
                 </View>
                 <Swiper index={0} style={styles.swiper} loop={false} showsPagination={false} onIndexChanged={(idx) => swipeIndex(idx)}>
                     {
-                    loggedUser.favorites.map((item)=>{
+                    loggedUser.favoritesArt.map((item)=>{
                         return(
                         <View style={styles.swiper}>
                             <Image  style={styles.image} source={{uri:item.obras}}></Image>
@@ -79,10 +75,26 @@ const Profile = ({navigation}) => {
                     })
                     }
                     <View>
-                        <Text>Artistas</Text>
+                        {
+                        loggedUser.favoritesArtist.map((item)=>{
+                            return(
+                            <View style={styles.swiper}>
+                                <Image  style={styles.image} source={{uri:item.obras}}></Image>
+                            </View>
+                            )
+                        })
+                        }
                     </View>
                     <View>
-                        <Text>Noticias</Text>
+                        {
+                        loggedUser.favoritesNew.map((item)=>{
+                            return(
+                            <View style={styles.swiper}>
+                                <Image  style={styles.image} source={{uri:item.obras}}></Image>
+                            </View>
+                            )
+                        })
+                        }
                     </View>
                 </Swiper>
                 <View></View>
