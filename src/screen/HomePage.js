@@ -55,7 +55,7 @@ const HomePage = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <SvgUri uri="https://osithual.sirv.com/Surrealismo/fundo.svg" style={styles.bg}/>
+      <SvgUri uri="https://osithual.sirv.com/Images/FCM/fundo.svg" style={styles.bg}/>
       <ScrollView>
         <View>
         <FlatList
