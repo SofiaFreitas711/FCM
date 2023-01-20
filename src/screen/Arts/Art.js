@@ -32,7 +32,6 @@ const Art = ({navigation, route}) => {
         }
 
       })
-      //loggedUser.favoritesArt.push(art._id)
       setFav(false)
       await axios.patch(`https://surrealismoapi.onrender.com/users/${loggedUser._id}`,loggedUser,{
         headers:{
@@ -77,7 +76,6 @@ const Art = ({navigation, route}) => {
       }
     })
     if (response.status == 200) {
-      //console.log(response.data)
       setLoggedUser(response.data.user);
     }
   }
