@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,7 +11,7 @@ import GameQuizz from "../../components/Games/QuizzGame.js";
 import GameCombination from "../../components/Games/CombinationGame.js";
 import PeddyPapper from "../../components/Games/PeddyPapper.js";
 
-const Game = ({navigation, route}) => {
+const Game = ({ navigation, route }) => {
   const [gameInfo, setgameInfo] = useState(null);
   const game = route.params.game;
 
@@ -27,51 +27,96 @@ const Game = ({navigation, route}) => {
   }
 
   const setLeaderbord = async (points) => {
-    const response = await api.patch(`/games/${game._id}`, 
-    {
-      leadebord: {
-        userID: AsyncStorage.getItem('userID'),
-        points: points
-      }
-    },{
+    let token = await AsyncStorage.getItem('token')
+    const game = await api.get(`/games/${gameInfo._id}`, {
       headers: {
-        'Authorization': `Bearer ${await AsyncStorage.getItem('token')}`
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
     })
-    if (response.status == 200) {
-      setgameInfo(response.data.game);
+    if (game.status == 200) {
+      let id = await AsyncStorage.getItem('userID');
+      let token = await AsyncStorage.getItem('token')
+      const user = await api.get(`/users/${id}`, {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      if (user.status == 200) {
+        const newLeaderboard = game.data.game.leaderbord
+        newLeaderboard.push({
+          name: user.data.user.name,
+          points: points
+        });
+
+        await api.patch(`/games/${gameInfo._id}`,
+          {
+            leaderbord: newLeaderboard,
+          }, {
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        })
+      }
+
     }
   }
-  
-  const finalizeGame = async (rightQuestion) => {
-    const questionPoint = gameInfo.points / gameInfo.questions.length 
-    const points = questionPoint * rightQuestion
-    // await setLeaderbord(points)
-    navigation.navigate('Leaderbord', {game: gameInfo, points: points})
+
+  const setPoints = async (points) => {
+    let id = await AsyncStorage.getItem('userID');
+    let token = await AsyncStorage.getItem('token')
+    const user = await api.get(`/users/${id}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    if (user.status == 200) {
+      const newPoints = user.data.user.points + points
+      await api.patch(`/users/${id}`,
+        {
+          points: newPoints,
+        }, {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+    }
   }
 
-  useEffect(()=>{
+  const finalizeGame = async (rightQuestion) => {
+    const questionPoint = gameInfo.points / gameInfo.questions.length
+    const points = questionPoint * rightQuestion
+    await setLeaderbord(points)
+    await setPoints(points)
+    navigation.navigate('Leaderboard', { game: gameInfo, points: points })
+  }
+
+  useEffect(() => {
     getGame(route.params.art)
   }, [])
 
   return (
     <View style={styles.container}>
-        <View style={styles.buttonBackContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate('Games')}>
-            <Text style={styles.buttonText}>&#x276C;</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>{game.name}</Text>
-        </View>
-      { 
+      <View style={styles.buttonBackContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate('Games')}>
+          <Text style={styles.buttonText}>&#x276C;</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>{game.name}</Text>
+      </View>
+      {
         gameInfo &&
-        game.type === "Quizz" ? <GameQuizz finalizeQuizz={finalizeGame} game={gameInfo.questions}/>
-        : game.type === "Combinação" ? <GameCombination/>
-        : game.type === "Peddy-Papper" ? <PeddyPapper/> 
-        : <View style={styles.loadingContainer}>
-           <Text style={styles.loading}>A carregar...</Text>
-         </View>
+          game.type === "Quizz" ? <GameQuizz finalizeQuizz={finalizeGame} game={gameInfo.questions} />
+          : game.type === "Combinação" ? <GameCombination />
+            : game.type === "Peddy-Papper" ? <PeddyPapper />
+              : <View style={styles.loadingContainer}>
+                <Text style={styles.loading}>A carregar...</Text>
+              </View>
       }
     </View>
   )
