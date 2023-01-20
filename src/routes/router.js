@@ -1,7 +1,5 @@
 import React from 'react'
-import { StyleSheet, Image } from 'react-native'
 
-import { useState, useEffect } from 'react';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -113,7 +111,8 @@ export default function DrawerNavigation() {
 
 export function Router() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Home'>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+
       <Stack.Screen name="Drawer" component={DrawerNavigation} />
       <Stack.Screen name="Onboarding" component={Onboarding} />
 
