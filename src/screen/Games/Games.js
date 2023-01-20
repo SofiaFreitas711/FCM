@@ -11,6 +11,7 @@ import FilterGames from '../../components/Games/FilterGames.js';
 import { SvgUri } from 'react-native-svg';
 import api from "../../api/index.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import IconMenu from 'react-native-vector-icons/Feather'
 
 const Games = ({ navigation }) => {
   const [filterName, setFilterName] = useState('')
@@ -62,6 +63,9 @@ const Games = ({ navigation }) => {
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.container}>
       <SvgUri uri="https://osithual.sirv.com/Surrealismo/fundo.svg" style={styles.bg} />
+      <Pressable onPress={() => navigation.navigate('Menu')}>
+        <IconMenu name="menu" color="#000" size={25}/>
+      </Pressable>
       <Text style={styles.title}>Jogos</Text>
       <FilterGames onFilterText={changeFilterText} onFilterType={changeFilterType} item={{ type: { filterType }, name: { filterName } }} />
       <FlatList

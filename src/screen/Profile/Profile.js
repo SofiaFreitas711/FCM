@@ -13,6 +13,8 @@ import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import api from "../../api/index.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import IconMenu from 'react-native-vector-icons/Feather'
+
 
 const Profile = ({navigation}) => {
 
@@ -46,12 +48,15 @@ const Profile = ({navigation}) => {
         {
             loggedUser &&
             <View style={styles.container}>
+                <Pressable onPress={() => navigation.navigate('Menu')} style={{zIndex: 1}}>
+                    <IconMenu name="menu" color="#000" size={25} style={{margin: 15}}/>
+                </Pressable>
                 <SvgUri height='100%' width='100%' uri="https://osithual.sirv.com/Images/FCM/Group%2034.svg" style={styles.bg}/>
 
                 {/* detalhes do utilizador */}
                 <View style={styles.userInfo}>
                     <Image source={{uri: loggedUser.image}} style={styles.userInfo.image}></Image>
-                    <Pressable style={styles.userInfo.text} onPress={() => navigation.navigate('EditProfile', {user: loggedUser})}>
+                    <Pressable style={styles.userInfo.text} onPress={() => navigation.navigate('EditProfile', {user: loggedUser._id})}>
                         <Text style={styles.nome}>{loggedUser.name} <Icon name="account-edit" size={40} color="#333333" style={[styles.icon]}></Icon></Text>
                         <Text style={styles.details}>{loggedUser.locality}</Text>
                     </Pressable>

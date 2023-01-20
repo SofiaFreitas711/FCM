@@ -11,6 +11,7 @@ import {
 
 import { SvgUri } from 'react-native-svg';
 import axios from 'axios';
+import IconMenu from 'react-native-vector-icons/Feather'
 
 
 const Arts = ({navigation}) => {
@@ -71,6 +72,9 @@ const Arts = ({navigation}) => {
     <View style={styles.titleContainer}>
       {artists && arts &&
         <View style={styles.titleContainer}>
+          <Pressable onPress={() => navigation.navigate('Menu')} style={{zIndex: 1}}>
+        <IconMenu name="menu" color="#000" size={25} style={{margin: 15}}/>
+      </Pressable>
         <SvgUri uri="https://osithual.sirv.com/Images/FCM/fundo.svg" style={styles.bg}/>
         <Text style={styles.title}>Surrealismo</Text>
       

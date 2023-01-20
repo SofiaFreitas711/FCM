@@ -36,7 +36,9 @@ import AboutUs from '../screen/AboutUs'
 
 import Error from '../screen/Error'
 
-import Menu from '../components/Menu'
+// import Menu from '../components/Menu'
+import Menu from '../screen/Menu'
+
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -47,7 +49,6 @@ const screenWidth = Math.round(Dimensions.get('window').width);
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
-
 
 export default function DrawerNavigation() {
   return (
@@ -113,38 +114,39 @@ export function Router() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
 
-      <Stack.Screen name="Drawer" component={DrawerNavigation} />
-      <Stack.Screen name="Onboarding" component={Onboarding} />
-
+      {/* <Stack.Screen name="Drawer" component={DrawerNavigation} /> */}
       <Stack.Screen name="Login" component={Login} />
-
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="HomePage" component={Home} />
+      <Stack.Screen name="Onboarding" component={Onboarding} />
 
 
       <Stack.Screen name="Registo" component={Register} />
 
-      <Stack.Screen name="Obras" component={Arts} />
-      <Stack.Screen name="Obra" component={Art} />
-      <Stack.Screen name="Artista" component={Artist} />
+      <Stack.Screen name="Arts" component={Arts} />
+      <Stack.Screen name="Art" component={Art} />
+      <Stack.Screen name="Artist" component={Artist} />
 
-      <Stack.Screen name="Atualidade" component={Present} />
-      <Stack.Screen name="Eventos" component={Events} />
-      <Stack.Screen name="Evento" component={Event} />
-      <Stack.Screen name="Notícias" component={News} />
-      <Stack.Screen name="Notícia" component={New} />
+      <Stack.Screen name="Present" component={Present} />
+      <Stack.Screen name="Events" component={Events} />
+      <Stack.Screen name="Event" component={Event} />
+      <Stack.Screen name="News" component={News} />
+      <Stack.Screen name="New" component={New} />
 
-      <Stack.Screen name="Jogos" component={Games} />
-      <Stack.Screen name="Jogo" component={Game} />
+      <Stack.Screen name="Games" component={Games} />
+      <Stack.Screen name="Game" component={Game} />
       <Stack.Screen name="Leaderboard" component={Leaderboard} />
 
-      <Stack.Screen name="Editar perfil" component={EditProfile} />
-      <Stack.Screen name="Perfil" component={Profile} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="Profile" component={Profile} />
 
-      <Stack.Screen name="Loja" component={Store} />
+      <Stack.Screen name="Store" component={Store} />
 
       <Stack.Screen name="Error" component={Error} />
 
       <Stack.Screen name="AboutUs" component={AboutUs} />
+
+      <Stack.Screen name="Menu" component={Menu} />
+
 
     </Stack.Navigator>
   )
