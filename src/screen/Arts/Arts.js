@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     color:'#E31E27'
   },
   swiper: {
-    top: 200,    
+    top: 120,    
   }, 
   image:{
     width:120,
