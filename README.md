@@ -14,5 +14,7 @@ Ana Sofia Freitas, Inês Reis e Paulo Rodrigues - ESMAD, Tecnologias e Sistemas 
 
 ## Como proceder à instalação:
 npm install
+
 npm start
+
 npm run android
