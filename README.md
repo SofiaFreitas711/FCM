@@ -13,3 +13,6 @@ Este aplicação, para telemóveis, tem como objetivo dar a conhecer e ensinar, 
 Ana Sofia Freitas, Inês Reis e Paulo Rodrigues - ESMAD, Tecnologias e Sistemas de Informação para a Web
 
 ## Como proceder à instalação:
+npm install
+npm start
+npm run android
